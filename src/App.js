@@ -10,11 +10,10 @@ import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 class App extends React.Component {
 
   state={
-    user: '',
-    token: ''
+    user: ''
   }
 
-  renderHome = () => <Home name={this.state.user.name}/>
+  renderHome = () => <Home name={this.state.user.name} />
 
   renderForm = (routerProps) => {
     switch (routerProps.location.pathname){
@@ -72,10 +71,11 @@ class App extends React.Component {
       if(data.error){
         this.handleError(data)
       } else {
-        this.setState({user: data.user, token: data.token}
+        this.setState({user: data.user}
           , () => {
-          localStorage.setItem('jwt', data.token)
-          this.props.history.push('/')}
+            localStorage.setItem('jwt', data.token)
+            this.props.history.push('/')
+          }
         )
       }
     })
@@ -83,6 +83,20 @@ class App extends React.Component {
 
   handleError = (data) => {
     alert(`${data.error}`)
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwt')) {
+      fetch('http://localhost:3000/getuser', {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => this.setState({user: data.user}))
+    }
   }
 
   render(){
