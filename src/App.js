@@ -10,7 +10,8 @@ import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 class App extends React.Component {
 
   state={
-    user: ''
+    user: '',
+    token: ''
   }
 
   renderHome = () => <Home name={this.state.user.name}/>
@@ -32,40 +33,62 @@ class App extends React.Component {
 
   handleSignup = (info) => {
     console.log('signup')
-    this.handleAuthFetch(info, 'http://localhost:3000/users')
+    const data = {
+      name: info.name,
+      username: info.username,
+      password: info.password
+    }
+    this.handleAuthFetch(data, 'http://localhost:3000/users')
   }
 
   handleLogin = (info) => {
     console.log('login')
-    this.handleAuthFetch(info, 'http://localhost:3000/login')
+    const data = {
+      username: info.username,
+      password: info.password
+    }
+    this.handleAuthFetch(data, 'http://localhost:3000/login')
   }
 
-  handleAuthFetch = (info, request) => {
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState({user: ""}, ()=>{
+      this.props.history.push('/login')
+    })
+  }
+
+  handleAuthFetch = (data, request) => {
+    
     fetch(request, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: info.name,
-        username: info.username,
-        password: info.password
-      })
+      body: JSON.stringify( data )
     })
     .then(resp => resp.json())
     .then(data => {
-      this.setState({user: data.user}
-        , () => {
-        // localStorage.setItem('jwt', data.token)
-        this.props.history.push('/')}
-      )
+      // debugger
+      if(data.error){
+        this.handleError(data)
+      } else {
+        this.setState({user: data.user, token: data.token}
+          , () => {
+          localStorage.setItem('jwt', data.token)
+          this.props.history.push('/')}
+        )
+      }
     })
+  }
+
+  handleError = (data) => {
+    alert(`${data.error}`)
   }
 
   render(){
   return (
     <div className="App">
-      <TopNav />
+      <TopNav handleLogout={this.handleLogout}/>
 
       <div className='Home'>
         <Switch>

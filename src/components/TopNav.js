@@ -14,7 +14,7 @@ export default class TopNav extends React.Component {
                         <Nav.Link href="/signup">Sign Up</Nav.Link>
 
                         <Nav.Link href="/profile">Profile</Nav.Link>
-                        <Nav.Link>Sign Out</Nav.Link>
+                        <Nav.Link onClick={this.props.handleLogout}>Sign Out</Nav.Link>
                         <Nav.Link href="/userrecipes">Bookmark Recipes</Nav.Link>
                     </Nav>
                 </Navbar>
