@@ -5,8 +5,9 @@ import Button from 'react-bootstrap/Button'
 export default class RenderForm extends React.Component {
     state={
         username: '',
-        password: '',
-        name: ''
+        name: '',
+        id: '',
+        password: ''
     }
 
     handleChange = (e) => {
@@ -18,7 +19,8 @@ export default class RenderForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.handleSubmit(this.state)
+        const deleteButton = e.target.getElementsByClassName('btn-danger')
+        deleteButton.length === 0 ? this.props.handleSubmit(this.state) : this.props.handleDelete()
     }
 
     componentDidMount() {
@@ -33,7 +35,8 @@ export default class RenderForm extends React.Component {
           .then(res => res.json())
           .then(data => this.setState({
                 username: data.user.username,
-                name: data.user.name
+                name: data.user.name,
+                id: data.user.id
             }))
         }
       }
@@ -89,15 +92,13 @@ export default class RenderForm extends React.Component {
                     {this.props.name === 'Update' ? 
                         <>
                             <Button type="submit" className="mb-2">Update</Button> 
-                            <Button type="submit" className="mb-2">Delete Account</Button> 
+                            <Button type="submit" className="mb-2" variant="danger">Delete Account</Button> 
                         </>
                         :
                         <Button type="submit" className="mb-2">
                             {this.props.name === "SignUp" ? "Sign Up" : "Log In"}
                         </Button>
                     }
-
-                    {/* {this.props.name === 'Update' ? <Button type="submit" className="mb-2">Update</Button> : null} */}
                 </Form>
             </div>
         )

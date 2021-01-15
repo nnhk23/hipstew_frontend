@@ -6,13 +6,14 @@ import Home from './components/Home'
 import RenderForm from './components/RenderForm'
 import RecipeList from './components/RecipeList'
 import UserRecipe from './components/UserRecipe'
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
+import DeleteModal from './components/DeleteModal'
+import { Route, Switch, withRouter } from 'react-router-dom'
 
 class App extends React.Component {
 
   state={
     user: '',
-    modal: false
+    deleteModal: false
   }
 
   renderHome = () => <Home name={this.state.user.name} />
@@ -66,6 +67,21 @@ class App extends React.Component {
     this.handleAuthFetch(data, `http://localhost:3000/users/${this.state.user.id}`, 'PATCH')
   }
 
+  handleDelete = () => {
+    this.closeModal()
+    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type' : 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(() => {
+      alert('Successfully Delete Account')
+      this.handleLogout()
+    })
+  }
+
   handleAuthFetch = (data, request, action) => {
     // debugger
     fetch(request, {
@@ -107,9 +123,9 @@ class App extends React.Component {
     }
   }
 
-  // openModal = () => {
-
-  // }
+  // trigger delete confirmation modal
+  openModal = () => this.setState({ deleteModal: true })
+  closeModal = () => this.setState({ deleteModal: false })
 
   render(){
   return (
@@ -126,7 +142,12 @@ class App extends React.Component {
           <Route exact path='/userrecipes' component={UserRecipe} />
         </Switch>
       </div>
+
+      {/* render delete confirmation modal */}
+      {this.state.deleteModal ? <DeleteModal closeModal={this.closeModal} show={this.state.deleteModal} handleDelete={this.handleDelete}/> : null}
+
     </div>
+ 
   );
   }
 }
