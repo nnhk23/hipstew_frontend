@@ -5,6 +5,7 @@ import TopNav from './components/TopNav'
 import Home from './components/Home'
 import RenderForm from './components/RenderForm'
 import RecipeList from './components/RecipeList'
+import UserRecipe from './components/UserRecipe'
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 
 class App extends React.Component {
@@ -52,7 +53,7 @@ class App extends React.Component {
   handleLogout = () => {
     localStorage.clear()
     this.setState({user: ""}, ()=>{
-      this.props.history.push('/login')
+      this.props.history.push('/')
     })
   }
 
@@ -102,7 +103,7 @@ class App extends React.Component {
   render(){
   return (
     <div className="App">
-      <TopNav handleLogout={this.handleLogout}/>
+      <TopNav handleLogout={this.handleLogout} user={this.state.user}/>
 
       <div className='Home'>
         <Switch>
@@ -111,6 +112,7 @@ class App extends React.Component {
           <Route exact path='/signup' component={this.renderForm} />
           <Route exact path='/editprofile' component={this.renderForm} />
           <Route exact path='/recipes' component={RecipeList} />
+          <Route exact path='/userrecipes' component={UserRecipe} />
         </Switch>
       </div>
     </div>

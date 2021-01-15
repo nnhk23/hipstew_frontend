@@ -7,12 +7,15 @@ import RecipeList from './RecipeList'
 
 export default class Home extends React.Component {
 
+    state = {
+        recipe: 'carousel'
+    }
+
     render(){
         return(
             <div>
                 <JumbotronNav name={this.props.name} />
-                <RecipeCarousel />
-                <RecipeList />
+                {this.state.recipe === 'carousel' ? <RecipeCarousel /> : <RecipeList />}
                 <Footer />
             </div>
         )
