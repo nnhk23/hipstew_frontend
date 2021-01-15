@@ -6,6 +6,7 @@ import RecipeList from './RecipeList'
 
 
 export default class Home extends React.Component {
+
     render(){
         return(
             <div>
