@@ -11,7 +11,8 @@ import {Route, Switch, withRouter, Redirect} from 'react-router-dom'
 class App extends React.Component {
 
   state={
-    user: ''
+    user: '',
+    modal: false
   }
 
   renderHome = () => <Home name={this.state.user.name} />
@@ -25,7 +26,7 @@ class App extends React.Component {
         return <div className='login'><RenderForm name="Login" handleSubmit={this.handleLogin} /></div>
 
       case "/editprofile" :
-        return <div className='login'><RenderForm name="Update" handleSubmit={this.handleUpdate} handleDelete={this.openModal} history={this.props.history}/></div>
+        return <div className='login'><RenderForm user={this.state.user} name="Update" handleSubmit={this.handleUpdate} handleDelete={this.openModal} history={this.props.history}/></div>
 
       default : break
     }
@@ -38,7 +39,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuthFetch(data, 'http://localhost:3000/users')
+    this.handleAuthFetch(data, 'http://localhost:3000/users', 'POST')
   }
 
   handleLogin = (info) => {
@@ -47,7 +48,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuthFetch(data, 'http://localhost:3000/login')
+    this.handleAuthFetch(data, 'http://localhost:3000/login', 'POST')
   }
 
   handleLogout = () => {
@@ -57,10 +58,18 @@ class App extends React.Component {
     })
   }
 
-  handleAuthFetch = (data, request) => {
-    
+  handleUpdate = (info) => {
+    const data = {
+      name: info.name,
+      password: info.password
+    }
+    this.handleAuthFetch(data, `http://localhost:3000/users/${this.state.user.id}`, 'PATCH')
+  }
+
+  handleAuthFetch = (data, request, action) => {
+    // debugger
     fetch(request, {
-      method: 'POST',
+      method: action,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -68,7 +77,6 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      // debugger
       if(data.error){
         this.handleError(data)
       } else {
@@ -76,8 +84,7 @@ class App extends React.Component {
           , () => {
             localStorage.setItem('jwt', data.token)
             this.props.history.push('/')
-          }
-        )
+          })
       }
     })
   }
@@ -99,6 +106,10 @@ class App extends React.Component {
       .then(data => this.setState({user: data.user}))
     }
   }
+
+  // openModal = () => {
+
+  // }
 
   render(){
   return (
