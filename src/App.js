@@ -16,7 +16,7 @@ class App extends React.Component {
     deleteModal: false
   }
 
-  renderHome = () => <Home name={this.state.user.name} />
+  renderHome = () => <Home name={this.state.user.name} history={this.props.history} />
 
   renderForm = (routerProps) => {
     switch (routerProps.location.pathname){
