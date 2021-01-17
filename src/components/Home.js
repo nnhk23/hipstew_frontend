@@ -23,14 +23,17 @@ export default class Home extends React.Component {
 
     renderRecipeDetails = (id) => this.setState({ recipe: 'details', currentRecipeId: id})
 
+    handleBackButton = () => this.setState({ recipe: 'result' })
+
     render(){
         return(
             <div>
                 <JumbotronNav name={this.props.name} handleSubmit={this.handleSubmit} />
+
                 {this.state.recipe === 'carousel' ? <RecipeCarousel /> : 
                     this.state.recipe === 'result' ? 
                         <RecipeList ingredients={this.state.ingredients} key='recipe_list' renderRecipeDetails={this.renderRecipeDetails} /> : 
-                        <RecipeDetails recipeId={this.state.currentRecipeId} />
+                        <RecipeDetails recipeId={this.state.currentRecipeId} key={this.state.currentRecipeId} handleBackButton={this.handleBackButton} />
 
                 }
                 <Footer />

@@ -1,3 +1,4 @@
 .recipe_card{
-    display: inline flex
+    display: inline-flex;
+    flex-wrap: wrap;
 }

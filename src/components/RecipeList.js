@@ -10,27 +10,28 @@ export default class RecipeList extends React.Component {
 
     componentDidMount() {
         fetch(`http://localhost:3000/getrecipe?ingredients=${this.props.ingredients}`)
+        // fetch('http://localhost:3000/recipes')
         .then(resp => resp.json())
         .then(data => {
-            // debugger
+            debugger
             this.setState({ recipes: data })
         })
     }
 
     handleClick = (e) => {
-        debugger
-        this.props.renderRecipeDetails(e.target.id)
+        // debugger
         // e.target.id? to pass down recipe's id to backend => fetch API
+        this.props.renderRecipeDetails(e.target.id)
     }
 
     render(){
         return(
-            <div>
-                List of recipes based on search term
-                {/* render 3 columns of recipes */}
-                {/* sorted by fastest prep time/healthiest/cheapest per serving */}
-                {this.state.recipes.map(recipe => 
-                    <Card border="success" style={{ width: '18rem' }} className='recipe_card'>
+            <div className='recipe_card'>
+                {console.log(this.props.ingredients)}
+                {console.log(this.state.recipes)}
+                {this.state.recipes.length === 0 ? <h2>Sorry, there is no recipe for {this.props.ingredients} :(. Please try another search term.</h2> : 
+                this.state.recipes.map(recipe => 
+                    <Card border="success" style={{ width: '18rem' }} >
                         <Card.Img variant="top" src={recipe.image} />
 
                         <Card.Body>
