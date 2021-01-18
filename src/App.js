@@ -55,7 +55,6 @@ class App extends React.Component {
   dynamicRecipes = (routerProps) => <UserRecipe recipeId={routerProps.match.params.id} />
 
   handleSignup = (info) => {
-    console.log('signup')
     const data = {
       name: info.name,
       username: info.username,
@@ -65,7 +64,6 @@ class App extends React.Component {
   }
 
   handleLogin = (info) => {
-    console.log('login')
     const data = {
       username: info.username,
       password: info.password
@@ -147,7 +145,7 @@ class App extends React.Component {
           <Route exact path='/editprofile' component={this.renderForm} />
           <Route exact path='/recipes' component={RecipeList} />
           <Route exact path='/userrecipes' component={this.renderUserRecipes} />
-          <Route exact path='/userrecipes/:id' component={this.dynamicRecipes} />
+          <Route path='/userrecipes/:id' component={this.dynamicRecipes} />
         </Switch>
       </div>
 
