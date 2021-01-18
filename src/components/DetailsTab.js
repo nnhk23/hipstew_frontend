@@ -36,12 +36,12 @@ const DetailsTab = ({ ingredients, instruction }) => {
             <Tab eventKey="instruction" title="Instruction">
                 {/* render instruction */}
                 <ListGroup variant="flush">
-                    {instruction[0].steps.map(step => 
+                    {instruction ? instruction[0].steps.map(step => 
                         <ListGroup.Item>
                             <h2>Step {step.number}:</h2>
                             <p>{step.step}</p>
                         </ListGroup.Item>
-                    )}
+                    ) : null}
                 </ListGroup>
             </Tab>
 

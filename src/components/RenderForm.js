@@ -19,8 +19,8 @@ export default class RenderForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const deleteButton = e.target.getElementsByClassName('btn-danger')
-        deleteButton.length === 0 ? this.props.handleSubmit(this.state) : this.props.handleDelete()
+        // debugger
+        e.nativeEvent.submitter.textContent !== 'Delete Account' ? this.props.handleSubmit(this.state) : this.props.handleDelete()
     }
 
     componentDidMount() {

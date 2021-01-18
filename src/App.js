@@ -1,4 +1,4 @@
-// import './App.css';
+import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import TopNav from './components/TopNav'
@@ -16,8 +16,24 @@ class App extends React.Component {
     deleteModal: false
   }
 
-  renderHome = () => <Home name={this.state.user.name} history={this.props.history} />
+  componentDidMount() {
+    if (localStorage.getItem('jwt')) {
+      fetch('http://localhost:3000/getuser', {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => this.setState({ user: data.user }))
+    }
+  }
 
+  // render home page
+  renderHome = () => <Home user={this.state.user} history={this.props.history} />
+
+  // render login/signup/update form
   renderForm = (routerProps) => {
     switch (routerProps.location.pathname){
       case "/signup" :
@@ -32,6 +48,9 @@ class App extends React.Component {
       default : break
     }
   }
+
+  // render user bookmarked recipes
+  renderUserRecipes = () => <UserRecipe recipes={this.state.user.user_recipes} />
 
   handleSignup = (info) => {
     console.log('signup')
@@ -109,20 +128,6 @@ class App extends React.Component {
     alert(`${data.error}`)
   }
 
-  componentDidMount() {
-    if (localStorage.getItem('jwt')) {
-      fetch('http://localhost:3000/getuser', {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization' : `Bearer ${localStorage.getItem('jwt')}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => this.setState({user: data.user}))
-    }
-  }
-
   // trigger delete confirmation modal
   openModal = () => this.setState({ deleteModal: true })
   closeModal = () => this.setState({ deleteModal: false })
@@ -139,7 +144,8 @@ class App extends React.Component {
           <Route exact path='/signup' component={this.renderForm} />
           <Route exact path='/editprofile' component={this.renderForm} />
           <Route exact path='/recipes' component={RecipeList} />
-          <Route exact path='/userrecipes' component={UserRecipe} />
+          <Route exact path='/userrecipes' component={this.renderUserRecipes} />
+          {/* <Route exact path='/userrecipes/:id' component={this.renderUserRecipes} /> */}
         </Switch>
       </div>
 
