@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const DetailsTab = ({ ingredients, instruction }) => {
+const DetailsTab = ({ ingredients, instruction, unit }) => {
 
     const [key, setKey] = useState('ingredients')
 
@@ -22,7 +22,7 @@ const DetailsTab = ({ ingredients, instruction }) => {
                     {ingredients.map(ingredient => 
                         <ListGroup.Item>
                             <Row>
-                                <Col>{` ${ingredient["measures"]["us"].amount} ${ingredient["measures"]["us"].unitLong}`}</Col>
+                                <Col>{` ${ingredient["measures"][unit].amount} ${ingredient["measures"][unit].unitLong}`}</Col>
                                 
                                 <Col>{ingredient.name}</Col>
 

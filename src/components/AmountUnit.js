@@ -4,12 +4,12 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 
-const AmountUnit = ({ currentRecipe }) => {
-    const [radioValue, setRadioValue] = useState('1')
+const AmountUnit = ({ currentRecipe, unitConversion }) => {
+    const [radioValue, setRadioValue] = useState('us')
 
     const radios = [
-        {name: 'US Unit', value: '1'},
-        {name: 'Metric Unit', value: '2'}
+        {name: 'US Unit', value: 'us'},
+        {name: 'Metric Unit', value: 'metric'}
     ]
 
     return(
@@ -33,7 +33,10 @@ const AmountUnit = ({ currentRecipe }) => {
                     name="radio"
                     value={radio.value}
                     checked={radioValue === radio.value}
-                    onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    onChange={(e) => {
+                        setRadioValue(e.currentTarget.value)
+                        unitConversion(radio.value)
+                    }}
                 >
                     {radio.name}
                 </ToggleButton>
