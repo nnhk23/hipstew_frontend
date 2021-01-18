@@ -13,7 +13,7 @@ export default class RecipeList extends React.Component {
         // fetch('http://localhost:3000/recipes')
         .then(resp => resp.json())
         .then(data => {
-            debugger
+            // debugger
             this.setState({ recipes: data })
         })
     }
@@ -27,8 +27,6 @@ export default class RecipeList extends React.Component {
     render(){
         return(
             <div className='recipe_card'>
-                {console.log(this.props.ingredients)}
-                {console.log(this.state.recipes)}
                 {this.state.recipes.length === 0 ? <h2>Sorry, there is no recipe for {this.props.ingredients} :(. Please try another search term.</h2> : 
                 this.state.recipes.map(recipe => 
                     <Card border="success" style={{ width: '18rem' }} >
@@ -36,9 +34,6 @@ export default class RecipeList extends React.Component {
 
                         <Card.Body>
                             <Card.Title onClick={this.handleClick} id={recipe.id}>{recipe.title}</Card.Title>
-                            <Card.Text>
-
-                            </Card.Text>
                         </Card.Body>
 
                     </Card>

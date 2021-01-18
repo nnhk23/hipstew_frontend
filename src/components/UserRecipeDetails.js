@@ -7,12 +7,11 @@ import Row from 'react-bootstrap/Row'
 import DetailsTab from './DetailsTab'
 import AmountUnit from './AmountUnit'
 
-export default class RecipeDetails extends React.Component  {
+export default class UserRecipeDetails extends React.Component {
 
-    state = {
+    state={
         currentRecipe: [],
         recipeImage: '',
-        recipeId: null,
         unit: 'us'
     }
 
@@ -20,47 +19,6 @@ export default class RecipeDetails extends React.Component  {
         fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
         .then(data => this.setState({ currentRecipe: data, recipeImage: data.image }))
-    }
-
-    handleBookmark = (recipe) => {
-        const { currentRecipe, recipeImage } = recipe
-        // save recipe to database (create new Recipe)
-        fetch('http://localhost:3000/recipes', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({
-                name: currentRecipe.title,
-                img_url: recipeImage,
-                recipe_id: currentRecipe.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            // debugger
-            this.setState({ recipeId: data.id }, () => {
-                // post request to create UserRecipe
-                fetch('http://localhost:3000/user_recipes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json'
-                    },
-                    body: JSON.stringify({
-                        user_id: this.props.userId,
-                        recipe_id: this.state.recipeId
-                    })
-                })
-                .then(resp => resp.json())
-                .then(data => {
-                    debugger
-                    alert('Recipe Bookmarked :)')
-                })
-            })
-        })
-        
-        
-
     }
 
     getAnalyzedInstruction = () => {
@@ -78,10 +36,7 @@ export default class RecipeDetails extends React.Component  {
     render(){
         return(
             <div>
-                <div>
-                    <Button onClick={this.props.handleBackButton}>Back</Button>
-                    <h1> {this.state.currentRecipe.title} </h1>
-                </div>
+                <h1> {this.state.currentRecipe.title} </h1>
                 <Row>
                     <Col>
                         <div>
@@ -93,7 +48,7 @@ export default class RecipeDetails extends React.Component  {
                                 <Card.Img variant="top" src={this.state.recipeImage} />
 
                                 <Card.Body>
-                                    <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
+                                    <Button variant='outline-danger' onClick={this.props.handleDelete}>Remove</Button>
                                 </Card.Body>
 
                             </Card>
