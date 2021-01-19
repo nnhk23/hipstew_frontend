@@ -4,7 +4,8 @@ import React from 'react'
 import TopNav from './components/TopNav'
 import Home from './components/Home'
 import RenderForm from './components/RenderForm'
-import RecipeList from './components/RecipeList'
+// import RecipeList from './components/RecipeList'
+import UserIngredient from './components/UserIngredient'
 import UserRecipe from './components/UserRecipe'
 import DeleteModal from './components/DeleteModal'
 import { Route, Switch, withRouter } from 'react-router-dom'
@@ -26,7 +27,9 @@ class App extends React.Component {
         }
       })
       .then(res => res.json())
-      .then(data => this.setState({ user: data.user }))
+      .then(data => {
+        // debugger
+        this.setState({ user: data.user })})
     }
   }
 
@@ -51,6 +54,8 @@ class App extends React.Component {
 
   // render user bookmarked recipes
   renderUserRecipes = () => <UserRecipe recipes={this.state.user.user_recipes} />
+
+  renderUserIngredients = () => <UserIngredient ingredients={this.state.user.user_ingres} />
 
   dynamicRecipes = (routerProps) => <UserRecipe recipeId={routerProps.match.params.id} />
 
@@ -143,7 +148,8 @@ class App extends React.Component {
           <Route exact path='/login' component={this.renderForm} />
           <Route exact path='/signup' component={this.renderForm} />
           <Route exact path='/editprofile' component={this.renderForm} />
-          <Route exact path='/recipes' component={RecipeList} />
+          {/* <Route exact path='/recipes' component={RecipeList} /> */}
+          <Route exact path='/useringredients' component={this.renderUserIngredients} />
           <Route exact path='/userrecipes' component={this.renderUserRecipes} />
           <Route path='/userrecipes/:id' component={this.dynamicRecipes} />
         </Switch>

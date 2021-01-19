@@ -53,7 +53,6 @@ export default class RecipeDetails extends React.Component  {
                 })
                 .then(resp => resp.json())
                 .then(data => {
-                    debugger
                     alert('Recipe Bookmarked :)')
                 })
             })
