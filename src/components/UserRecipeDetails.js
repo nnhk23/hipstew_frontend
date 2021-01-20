@@ -13,13 +13,15 @@ export default class UserRecipeDetails extends React.Component {
     state={
         currentRecipe: [],
         recipeImage: '',
-        unit: 'us'
+        unit: 'us',
+        servings: null,
+        OGservings: null
     }
 
     componentDidMount() {
         fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
-        .then(data => this.setState({ currentRecipe: data, recipeImage: data.image }))
+        .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
     }
 
     getAnalyzedInstruction = () => {
@@ -31,6 +33,7 @@ export default class UserRecipeDetails extends React.Component {
         })
     }
 
+    updateServings = (servings) => this.setState({ servings })
     // set ingredient measurements (standard/metric units)
     unitConversion = (unit) => this.setState({ unit })
 
@@ -47,7 +50,7 @@ export default class UserRecipeDetails extends React.Component {
                                     {/* render servings amount and measurement unit for ingredient */}
                                     <Row>
                                         <Col>
-                                            <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} />
+                                            <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
                                         </Col>
 
                                         <Col>
@@ -87,6 +90,8 @@ export default class UserRecipeDetails extends React.Component {
                                             this.getAnalyzedInstruction() : 
                                             this.state.currentRecipe.analyzedInstructions
                                         } 
+                                        servings={this.state.servings}
+                                        OGservings={this.state.OGservings}
                                     /> : null
                                 }
                             </Col>

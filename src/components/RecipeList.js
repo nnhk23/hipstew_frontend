@@ -15,7 +15,7 @@ export default class RecipeList extends React.Component {
         fetch(`http://localhost:3000/getrecipe?ingredients=${this.props.ingredients}`)
         .then(resp => resp.json())
         .then(data => {
-            debugger
+            // debugger
             if (data.error){
                 this.setState({ error: data.error })
             } else {
@@ -27,7 +27,7 @@ export default class RecipeList extends React.Component {
     handleClick = (e) => {
         // debugger
         // e.target.id? to pass down recipe's id to backend => fetch API
-        this.props.renderRecipeDetails(e.target.id)
+        this.props.renderRecipeDetails(e.target.id, 'list')
     }
 
     render(){
