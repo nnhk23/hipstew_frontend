@@ -12,7 +12,8 @@ export default class Home extends React.Component {
         recipe: 'carousel',
         ingredients: '',
         currentRecipeId: '',
-        searchType: ''
+        searchType: '',
+        recipeSource: ''
     }
 
     handleSubmit = (e, ingredients, searchType) => {
@@ -20,9 +21,11 @@ export default class Home extends React.Component {
         this.setState({ recipe: 'result', ingredients , searchType})
     }
 
-    renderRecipeDetails = (id) => this.setState({ recipe: 'details', currentRecipeId: id})
+    renderRecipeDetails = (id, recipeSource) => this.setState({ recipe: 'details', currentRecipeId: id, recipeSource })
 
     handleBackButton = () => this.setState({ recipe: 'result' })
+
+    goBackHome = () => window.location.reload()
 
     render(){
         return(
@@ -45,7 +48,7 @@ export default class Home extends React.Component {
                                 userId={this.props.user.id}
                                 recipeId={this.state.currentRecipeId} 
                                 key={this.state.currentRecipeId} 
-                                handleBackButton={this.handleBackButton} 
+                                handleBackButton={this.state.recipeSource === 'list' ? this.handleBackButton : this.goBackHome} 
                             />
                 }
             </div>

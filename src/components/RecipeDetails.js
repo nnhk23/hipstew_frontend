@@ -14,13 +14,15 @@ export default class RecipeDetails extends React.Component  {
         currentRecipe: [],
         recipeImage: '',
         recipeId: null,
-        unit: 'us'
+        unit: 'us',
+        servings: null,
+        OGservings: null
     }
 
     componentDidMount() {
         fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
-        .then(data => this.setState({ currentRecipe: data, recipeImage: data.image }))
+        .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
     }
 
     handleBookmark = (recipe) => {
@@ -72,35 +74,32 @@ export default class RecipeDetails extends React.Component  {
         })
     }
 
+    updateServings = (servings) => this.setState({ servings })
+
     // set ingredient measurements (standard/metric units)
     unitConversion = (unit) => this.setState({ unit })
 
     render(){
         return(
             <div>
-                {/* <Row>
-                    <Col> */}
-                        {/* <div> */}
-                            {/* render servings amount and measurement unit for ingredient */}
-                            <Row>
-                                <Col>
-                                    <h1 className='recipe-title'><Button onClick={this.props.handleBackButton}>Back</Button> {`  ${this.state.currentRecipe.title}`}</h1>
-                                    <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} />
-                                    
-                                    {/* <h5>{this.state.currentRecipe.readyInMinutes} minutes</h5> */}
-                                
-                                    {/* recipe photo and bookmark button */}
-                                    <Card style={{ width: '40rem' }} className="text-center recipe-card">
-                                        <Card.Img variant="top" src={this.state.recipeImage} />
+                {/* render servings amount and measurement unit for ingredient */}
+                <Row>
+                    <Col>
+                        <h1 className='recipe-title'><Button onClick={this.props.handleBackButton}>Back</Button> {`  ${this.state.currentRecipe.title}`}</h1>
 
-                                        <Card.Body>
-                                            <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
-                                        </Card.Body>
+                        {/* render unit toggle button and servings amount */}
+                        <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
+                    
+                        {/* recipe photo and bookmark button */}
+                        <Card style={{ width: '40rem' }} className="text-center recipe-card">
+                            <Card.Img variant="top" src={this.state.recipeImage} />
 
-                                    </Card>
-                                </Col>
-                            {/* </Row> */}
-                        {/* </div> */}
+                            <Card.Body>
+                                <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
+                            </Card.Body>
+
+                        </Card>
+                    </Col>
 
                     <Col>
                         {/* recipe's details including ingredients and instruction */}
@@ -113,6 +112,8 @@ export default class RecipeDetails extends React.Component  {
                                     this.getAnalyzedInstruction() : 
                                     this.state.currentRecipe.analyzedInstructions
                                 } 
+                                servings={this.state.servings}
+                                OGservings={this.state.OGservings}
                             /> : null
                         }
                     </Col>
