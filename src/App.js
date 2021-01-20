@@ -4,7 +4,8 @@ import React from 'react'
 import TopNav from './components/TopNav'
 import Home from './components/Home'
 import RenderForm from './components/RenderForm'
-import RecipeList from './components/RecipeList'
+import Footer from './components/Footer'
+import UserIngredient from './components/UserIngredient'
 import UserRecipe from './components/UserRecipe'
 import DeleteModal from './components/DeleteModal'
 import { Route, Switch, withRouter } from 'react-router-dom'
@@ -26,7 +27,9 @@ class App extends React.Component {
         }
       })
       .then(res => res.json())
-      .then(data => this.setState({ user: data.user }))
+      .then(data => {
+        // debugger
+        this.setState({ user: data.user })})
     }
   }
 
@@ -52,10 +55,11 @@ class App extends React.Component {
   // render user bookmarked recipes
   renderUserRecipes = () => <UserRecipe recipes={this.state.user.user_recipes} />
 
+  renderUserIngredients = () => <UserIngredient ingredients={this.state.user.user_ingres} />
+
   dynamicRecipes = (routerProps) => <UserRecipe recipeId={routerProps.match.params.id} />
 
   handleSignup = (info) => {
-    console.log('signup')
     const data = {
       name: info.name,
       username: info.username,
@@ -65,7 +69,6 @@ class App extends React.Component {
   }
 
   handleLogin = (info) => {
-    console.log('login')
     const data = {
       username: info.username,
       password: info.password
@@ -145,14 +148,17 @@ class App extends React.Component {
           <Route exact path='/login' component={this.renderForm} />
           <Route exact path='/signup' component={this.renderForm} />
           <Route exact path='/editprofile' component={this.renderForm} />
-          <Route exact path='/recipes' component={RecipeList} />
+          {/* <Route exact path='/recipes' component={RecipeList} /> */}
+          <Route exact path='/useringredients' component={this.renderUserIngredients} />
           <Route exact path='/userrecipes' component={this.renderUserRecipes} />
-          <Route exact path='/userrecipes/:id' component={this.dynamicRecipes} />
+          <Route path='/userrecipes/:id' component={this.dynamicRecipes} />
         </Switch>
       </div>
 
       {/* render delete confirmation modal */}
       {this.state.deleteModal ? <DeleteModal closeModal={this.closeModal} show={this.state.deleteModal} handleDelete={this.handleDelete}/> : null}
+
+      <Footer />
 
     </div>
  

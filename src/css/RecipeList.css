@@ -1,4 +1,10 @@
 .recipe_card{
     display: inline-flex;
     flex-wrap: wrap;
+    width: 1219px;
+    margin: 70px;
+}
+
+.recipe-img{
+    cursor: pointer;
 }

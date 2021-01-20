@@ -14,6 +14,8 @@ const AmountUnit = ({ currentRecipe, unitConversion }) => {
 
     return(
         <ButtonGroup toggle>
+            <h5>{currentRecipe.readyInMinutes} minutes</h5>
+
             <DropdownButton 
                 id="dropdown-success-button" 
                 title={`${currentRecipe.servings} Servings`}

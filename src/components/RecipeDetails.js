@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 
 import DetailsTab from './DetailsTab'
 import AmountUnit from './AmountUnit'
+import '../css/RecipeDetails.css'
 
 export default class RecipeDetails extends React.Component  {
 
@@ -53,7 +54,6 @@ export default class RecipeDetails extends React.Component  {
                 })
                 .then(resp => resp.json())
                 .then(data => {
-                    debugger
                     alert('Recipe Bookmarked :)')
                 })
             })
@@ -78,27 +78,29 @@ export default class RecipeDetails extends React.Component  {
     render(){
         return(
             <div>
-                <div>
-                    <Button onClick={this.props.handleBackButton}>Back</Button>
-                    <h1> {this.state.currentRecipe.title} </h1>
-                </div>
-                <Row>
-                    <Col>
-                        <div>
+                {/* <Row>
+                    <Col> */}
+                        {/* <div> */}
                             {/* render servings amount and measurement unit for ingredient */}
-                            <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} />
+                            <Row>
+                                <Col>
+                                    <h1 className='recipe-title'><Button onClick={this.props.handleBackButton}>Back</Button> {`  ${this.state.currentRecipe.title}`}</h1>
+                                    <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} />
+                                    
+                                    {/* <h5>{this.state.currentRecipe.readyInMinutes} minutes</h5> */}
+                                
+                                    {/* recipe photo and bookmark button */}
+                                    <Card style={{ width: '40rem' }} className="text-center recipe-card">
+                                        <Card.Img variant="top" src={this.state.recipeImage} />
 
-                            {/* recipe photo and bookmark button */}
-                            <Card style={{ width: '40rem' }} className="text-center">
-                                <Card.Img variant="top" src={this.state.recipeImage} />
+                                        <Card.Body>
+                                            <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
+                                        </Card.Body>
 
-                                <Card.Body>
-                                    <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
-                                </Card.Body>
-
-                            </Card>
-                        </div>
-                    </Col>
+                                    </Card>
+                                </Col>
+                            {/* </Row> */}
+                        {/* </div> */}
 
                     <Col>
                         {/* recipe's details including ingredients and instruction */}
