@@ -1,12 +1,13 @@
 import React from 'react'
 import Nav from 'react-bootstrap/Nav'
+import '../css/Footer.css'
 
 export default class Footer extends React.Component {
     render(){
         return(
-            <div>
+            <div className='footer'>
                 {/* render social media links and name  */}
-                <Nav className="justify-content-end" activeKey="/home">
+                <Nav className="justify-content-center" activeKey="/home">
                     
                     <Nav.Item>
                     <Nav.Link href="#igLink">Facebook</Nav.Link>

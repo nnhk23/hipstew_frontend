@@ -4,7 +4,7 @@ import React from 'react'
 import TopNav from './components/TopNav'
 import Home from './components/Home'
 import RenderForm from './components/RenderForm'
-// import RecipeList from './components/RecipeList'
+import Footer from './components/Footer'
 import UserIngredient from './components/UserIngredient'
 import UserRecipe from './components/UserRecipe'
 import DeleteModal from './components/DeleteModal'
@@ -157,6 +157,8 @@ class App extends React.Component {
 
       {/* render delete confirmation modal */}
       {this.state.deleteModal ? <DeleteModal closeModal={this.closeModal} show={this.state.deleteModal} handleDelete={this.handleDelete}/> : null}
+
+      <Footer />
 
     </div>
  

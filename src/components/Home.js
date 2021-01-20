@@ -1,6 +1,5 @@
 import React from 'react'
 import JumbotronNav from './JumbotronNav'
-import Footer from './Footer'
 import RecipeCarousel from './RecipeCarousel'
 import RecipeList from './RecipeList'
 import RecipeDetails from './RecipeDetails'
@@ -30,7 +29,7 @@ export default class Home extends React.Component {
             <div>
                 <JumbotronNav name={this.props.user.name} handleSubmit={this.handleSubmit} />
 
-                {this.state.recipe === 'carousel' ? <RecipeCarousel /> : 
+                {this.state.recipe === 'carousel' ? <RecipeCarousel renderRecipeDetails={this.renderRecipeDetails} /> : 
                     this.state.recipe === 'result' && this.state.searchType === 'recipe' ? 
                         <RecipeList 
                             ingredients={this.state.ingredients} 
@@ -48,9 +47,7 @@ export default class Home extends React.Component {
                                 key={this.state.currentRecipeId} 
                                 handleBackButton={this.handleBackButton} 
                             />
-
                 }
-                <Footer />
             </div>
         )
     }

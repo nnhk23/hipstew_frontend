@@ -1,0 +1,12 @@
+.carousel-img{
+    margin: 2rem auto 2rem auto;
+    cursor: pointer;
+}
+
+.carousel-bg{
+    background-color: rgb(147 150 122);
+}
+
+.carousel-control-next, .carousel-control-prev {
+    background-color: #383a2e;
+}

@@ -58,7 +58,7 @@ export default class UserRecipeDetails extends React.Component {
                                     
 
                                     {/* recipe photo and bookmark button */}
-                                    <Card style={{ width: '40rem' }} className="text-center">
+                                    <Card style={{ width: '40rem' }} className="text-center recipe-card">
                                         <Card.Img variant="top" src={this.state.recipeImage} />
 
                                         <Card.Body>

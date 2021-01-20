@@ -36,11 +36,11 @@ export default class RecipeList extends React.Component {
                 {this.state.error ? <h2>{this.state.error}</h2> : 
                     this.state.recipes.length === 0 ? <h2>Loading Results...</h2> :
                         this.state.recipes.map(recipe => 
-                            <Card border="success" style={{ width: '18rem' }} >
+                            <Card border="success" style={{ width: '19rem' }} >
                                 <Card.Img variant="top" src={recipe.image} />
 
                                 <Card.Body>
-                                    <Card.Title onClick={this.handleClick} id={recipe.id}>{recipe.title}</Card.Title>
+                                    <Card.Title onClick={this.handleClick} id={recipe.id} className='recipe-img'>{recipe.title}</Card.Title>
                                 </Card.Body>
 
                             </Card>

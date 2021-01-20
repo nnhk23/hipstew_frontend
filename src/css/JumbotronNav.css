@@ -1,3 +1,38 @@
 .toggleBtn{
     display: inline-block;
 }
+
+.jumbotron-card{
+    height: 450px;
+    position: relative;
+}
+
+
+.jumbotron-holder{
+    height: 450px;
+    display: inline;
+    position: relative;
+    width: 100px;
+}
+
+.jumbotron-holder::before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 120rem;
+    height: 450px;
+    background:  url(../images/rachel-park-hrlvr2ZlUNk-unsplash.jpg);
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.jumbotron{
+    padding-top: 19rem;
+    margin-bottom: 0;
+    background-color: #e9ecef00;
+}
+
+.greeting{
+    position: relative;
+}
+
