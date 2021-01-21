@@ -1,0 +1,26 @@
+.ingr-card{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 1219px;
+    margin-top: 150px;
+    height: 100vh;
+    margin-bottom: 150px;
+    justify-content: center;
+}
+
+.individual-card{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.ingr-img-card{
+    max-height: 286px;
+    max-width: 200px;
+    margin: auto;
+}
+
+.more-btn{
+    margin: 10px auto;
+    height: 50px;
+    width: 1180px;;
+}

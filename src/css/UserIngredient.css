@@ -1,0 +1,14 @@
+.ingr-card{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 1219px;
+    margin: 70px;
+    height: 100vh;
+    margin-bottom: 150px;
+    justify-content: center;
+}
+
+.individual-ingr-card{
+    margin-left: 5px;
+    margin-right: 5px;
+}

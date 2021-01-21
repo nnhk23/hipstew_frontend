@@ -1,3 +1,5 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+
 .recipe-card{
     margin-top: 20px;
 }
@@ -29,5 +31,13 @@
 }
 
 .recipe-details{
-    margin: 20px;
+    margin: 110px;
+}
+
+.like-btn {
+    height: 60px;
+    width: 60px;
+    font-size: 23px;
+    border: none;
+    border-radius: 100%;
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import '../css/RecipeList.css'
+import '../css/UserIngredient.css'
 
 export default class UserIngredient extends React.Component {
 
@@ -21,10 +21,10 @@ export default class UserIngredient extends React.Component {
 
     render(){
         return(
-            <div className='recipe_card'>
+            <div className='ingr-card'>
                 {this.props.ingredients ? this.props.ingredients.length === 0 ? <h5>Your Fridge is empty :(...</h5> :
                 this.props.ingredients.map(ingredient =>
-                    <Card style={{ width: '18rem', height: '23rem' }} className='ingr-card' >
+                    <Card style={{ width: '18rem', height: '23rem' }} className='individual-ingr-card' >
                         
                     <Card.Img variant="top" src={ingredient.img_url} />
 
