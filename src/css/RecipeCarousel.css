@@ -6,13 +6,13 @@
 .carousel-bg{
     background-color: rgb(218 202 180);
     width: 850px;
-    margin: auto;
+    margin: 32px auto;
 }
 
 .carousel-control-next, .carousel-control-prev {
     background-color: rgb(165 153 137);
 }
 
-.carousel-holder{
+/* .carousel-holder{
     margin-top: 30px;
-}
+} */

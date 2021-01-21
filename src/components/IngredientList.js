@@ -8,7 +8,8 @@ export default class IngredientList extends React.Component {
     state={
         ingredients: [],
         error: null,
-        ingredientId: null
+        ingredientId: null,
+        ingrAmount: 0
     }
 
     componentDidMount() {
@@ -58,14 +59,26 @@ export default class IngredientList extends React.Component {
         })
     }
 
+    handleMoreIngredients = () => {
+        if (this.state.ingrAmoun === 12) {
+            this.setState({ ingrAmoun: 0 })
+            alert('Reached the end of result :).')
+        } else {
+            this.setState(prevState => {
+                return{ ingrAmoun: prevState.ingrAmoun + 12}
+            })
+        }
+    }
+
     render(){
+        const num = this.state.ingrAmount
         return(
             <div className='recipe_card'>
                 {this.state.error ? <h2>{this.state.error}</h2> : 
                     this.state.ingredients.length === 0 ? <h2>Loading Results...</h2> : 
-                        this.state.ingredients.map(ingredient => 
-                            <Card style={{ width: '18rem', height: '20rem' }} >
-                                <Card.Img variant="top" src={`https://spoonacular.com/cdn/ingredients_500x500/${ingredient.image}`} />
+                        this.state.ingredients.slice(num, num+12).map(ingredient => 
+                            <Card style={{ width: '18rem', height: '26rem' }} >
+                                <Card.Img variant="top" src={`https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`} />
                                 <Card.Title >{ingredient.name}</Card.Title>
 
                                 <Card.Body>
@@ -76,6 +89,11 @@ export default class IngredientList extends React.Component {
 
                             </Card>
                         )
+                }
+
+                {this.state.ingredients.length !== 0 ? 
+                    <Button size="lg" block className='more-btn' variant='outline-warning' onClick={this.handleMoreIngredients}>More Result</Button> 
+                    : null
                 }
             </div>  
         )

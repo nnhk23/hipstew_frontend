@@ -7,7 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 import DetailsTab from './DetailsTab'
 import AmountUnit from './AmountUnit'
-import '../css/RecipeDetails.css'
+import '../css/UserRecipeDetails.css'
 
 export default class UserRecipeDetails extends React.Component {
 
@@ -42,16 +42,16 @@ export default class UserRecipeDetails extends React.Component {
 
     render(){
         return(
-            <div className='recipe-details'>
+            <div id='user-recipe' className='recipe-details'>
                 {this.state.currentRecipe.length !== 0 ? 
                     <>
 
                         <Row className='title-row'>
                             
-                                <Col xs={1}>
+                                <Col xs={2}>
                                     <Button variant='danger' onClick={this.handleBackButton} className='back-btn'>❮</Button> 
                                 </Col> 
-                                <Col xs={6}>
+                                <Col xs={7}>
                                     <h1 className='recipe-title'>
                                 {`  ${this.state.currentRecipe.title}  `} </h1>
                                 </Col>
@@ -62,9 +62,9 @@ export default class UserRecipeDetails extends React.Component {
                            
                         </Row>
 
-                        <Row>
-                            <Col>
-                                <div>
+                        <Row style={{ width: '1300px' }}>
+                            <Col xs={7}>
+                                <div className='amount-unit'>
                                     {/* render servings amount and measurement unit for ingredient */}
                                     <Row>
                                         <Col>

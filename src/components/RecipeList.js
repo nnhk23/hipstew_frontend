@@ -62,7 +62,9 @@ export default class RecipeList extends React.Component {
                 }
 
                 {this.state.recipes.length !== 0 ? 
-                    <Button size="lg" block className='more-btn' variant='outline-warning' onClick={this.handleMoreRecipes}>More Recipes</Button> : null}
+                    <Button size="lg" block className='more-btn' variant='outline-warning' onClick={this.handleMoreRecipes}>More Recipes</Button> 
+                    : null
+                }
             </div>
         )
     }
