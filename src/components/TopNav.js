@@ -10,18 +10,18 @@ export default class TopNav extends React.Component {
             <div className='top-nav-bg'>
                 <Navbar bg="light" variant="light">
                     <Nav.Link href="/"><img className='hipstew-logo' src='https://www.brandbucket.com/sites/default/files/logo_uploads/187362/large_hipstew.png' alt='Hipstew-logo' /></Nav.Link>
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto top-nav-btn">
                         {!this.props.user ? 
                             <>
-                                <Nav.Link className='user-btns' href="/login">Log In</Nav.Link>
-                                <Nav.Link className='user-btns' href="/signup">Sign Up</Nav.Link>
+                                <Nav.Link className='user-btns login-btn' href="/login">LOG IN</Nav.Link>
+                                <Nav.Link className='user-btns signup-btn' href="/signup">SIGN UP</Nav.Link>
                             </> 
                             :
                             <>
-                                <Nav.Link href="/editprofile">Update Profile</Nav.Link>
-                                <Nav.Link href="/userrecipes">Bookmark Recipes</Nav.Link>
-                                <Nav.Link href="/useringredients">Favorite Ingredients</Nav.Link>
-                                <Nav.Link className='user-btns' onClick={this.props.handleLogout}>Sign Out</Nav.Link>
+                                <Nav.Link href="/editprofile">PROFILE</Nav.Link>
+                                <Nav.Link href="/userrecipes">RECIPES LIST</Nav.Link>
+                                <Nav.Link href="/useringredients">YOUR FRIDGE</Nav.Link>
+                                <Nav.Link className='user-btns logout-btn' onClick={this.props.handleLogout}>SIGN OUT</Nav.Link>
                             </>                    
                         }
                     </Nav>

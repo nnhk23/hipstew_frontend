@@ -64,12 +64,14 @@ export default class IngredientList extends React.Component {
                 {this.state.error ? <h2>{this.state.error}</h2> : 
                     this.state.ingredients.length === 0 ? <h2>Loading Results...</h2> : 
                         this.state.ingredients.map(ingredient => 
-                            <Card border="success" style={{ width: '18rem' }} >
+                            <Card style={{ width: '18rem', height: '20rem' }} >
                                 <Card.Img variant="top" src={`https://spoonacular.com/cdn/ingredients_500x500/${ingredient.image}`} />
                                 <Card.Title >{ingredient.name}</Card.Title>
 
                                 <Card.Body>
-                                    <Button variant="danger" onClick={() => this.handleBookmark(ingredient)} id={ingredient.id}>Bookmark</Button>
+                                    {this.props.userId ? 
+                                        <Button variant="danger" onClick={() => this.handleBookmark(ingredient)} id={ingredient.id}>Bookmark</Button> : <h5>Please log in to unlock extra functionality :)</h5> 
+                                    }
                                 </Card.Body>
 
                             </Card>

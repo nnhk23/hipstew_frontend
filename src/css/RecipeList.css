@@ -3,8 +3,23 @@
     flex-wrap: wrap;
     width: 1219px;
     margin: 70px;
+    height: 100vh;
+}
+
+.individual-card{
+    height: 200px;
 }
 
 .recipe-img{
     cursor: pointer;
+}
+
+.more-btn{
+    margin: 10px auto;
+    height: 50px;
+}
+
+.ingr-card{
+    margin-left: 5px;
+    margin-right: 5px;
 }

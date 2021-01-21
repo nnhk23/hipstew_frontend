@@ -8,19 +8,19 @@ export default class RecipeCarousel extends React.Component {
         recipes: []
     }
 
-    // componentDidMount() {
-    //     fetch('http://localhost:3000/getrandomrecipes')
-    //     .then(resp => resp.json())
-    //     .then(data => this.setState({ recipes: data.recipes }))
-    // }
+    componentDidMount() {
+        fetch('http://localhost:3000/getrandomrecipes')
+        .then(resp => resp.json())
+        .then(data => this.setState({ recipes: data.recipes }))
+    }
 
 
     render(){
         return(
-            <div>
+            <div className='carousel-holder'>
                 {/* render carousel of 5 random recipes */}
-                <h1>render carousel</h1>
-                {/* <Carousel className='carousel-bg'>
+                {/* <h1>render carousel</h1> */}
+                <Carousel className='carousel-bg'>
                     {this.state.recipes.map(recipe => 
                     
                         <Carousel.Item interval={2000}>
@@ -35,7 +35,7 @@ export default class RecipeCarousel extends React.Component {
                             </Carousel.Caption>
                         </Carousel.Item>
                     )}
-                </Carousel> */}
+                </Carousel>
                     
             </div>
         )

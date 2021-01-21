@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import '../css/App.css'
 
 export default class RenderForm extends React.Component {
     state={
@@ -43,15 +44,16 @@ export default class RenderForm extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className='form'>
                 {/* render login/signup form depend on button */}
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit} className='form-content'>
                     <h1>{this.props.name === "SignUp" ? "Sign up" : this.props.name === 'Update' ? "Update Profile" : "Log In"}</h1>
                     {/* render name field conditionally */}
                     {this.props.name !== "Login" ?
                         <Form.Group >
                             <Form.Label htmlFor="name">Name</Form.Label>
-                            <Form.Control 
+                            <Form.Control
+                                id='form-input-field' 
                                 type="text" 
                                 name="name"
                                 value={this.state.name}
@@ -64,6 +66,7 @@ export default class RenderForm extends React.Component {
                         <Form.Label htmlFor="username">Username</Form.Label>
                         {this.props.name === "Update" ? 
                             <Form.Control 
+                                id='form-input-field'
                                 type="text" 
                                 name="username" 
                                 value={this.state.username} 
@@ -71,6 +74,7 @@ export default class RenderForm extends React.Component {
                                 readOnly
                             /> : 
                             <Form.Control 
+                                id='form-input-field'
                                 type="text" 
                                 name="username" 
                                 value={this.state.username} 
@@ -82,6 +86,7 @@ export default class RenderForm extends React.Component {
                     <Form.Group >
                         <Form.Label htmlFor="password">Password</Form.Label>
                         <Form.Control 
+                            id='form-input-field'
                             type="password" 
                             name="password" 
                             value={this.state.password} 

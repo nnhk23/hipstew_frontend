@@ -1,8 +1,27 @@
 .App {
     text-align: center;
-    background-color: rgba(248, 248, 243)
+    background-color: rgb(250, 241, 224);
 }
 
-/* .Home{
-    margin: 250px;
-} */
+.form{
+    height: 780px;
+    margin: 140px auto;
+    width: 800px;
+    padding-top: 90px;
+}
+
+.form-content{
+    background-color: rgb(250, 246, 239);
+    height: 500px;
+    padding-top: 50px;
+}
+
+#form-input-field{
+    margin: auto;
+    width: 60%;
+}
+
+
+.Home{
+    height: 100%;
+}

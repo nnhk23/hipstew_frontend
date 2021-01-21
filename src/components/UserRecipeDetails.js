@@ -1,12 +1,13 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-// import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 import DetailsTab from './DetailsTab'
 import AmountUnit from './AmountUnit'
+import '../css/RecipeDetails.css'
 
 export default class UserRecipeDetails extends React.Component {
 
@@ -37,13 +38,30 @@ export default class UserRecipeDetails extends React.Component {
     // set ingredient measurements (standard/metric units)
     unitConversion = (unit) => this.setState({ unit })
 
+    handleBackButton = () => this.props.history.push('/userrecipes')
+
     render(){
         return(
-            <div>
+            <div className='recipe-details'>
                 {this.state.currentRecipe.length !== 0 ? 
                     <>
-                        <h1> {this.state.currentRecipe.title} </h1>
-                            {console.log(this.state.currentRecipe)}
+
+                        <Row className='title-row'>
+                            
+                                <Col xs={1}>
+                                    <Button variant='danger' onClick={this.handleBackButton} className='back-btn'>❮</Button> 
+                                </Col> 
+                                <Col xs={6}>
+                                    <h1 className='recipe-title'>
+                                {`  ${this.state.currentRecipe.title}  `} </h1>
+                                </Col>
+
+                                <Col xs={2}>
+                                    <h5 className='prepTime'>{this.state.currentRecipe.readyInMinutes} minutes</h5>
+                                </Col>
+                           
+                        </Row>
+
                         <Row>
                             <Col>
                                 <div>
@@ -52,11 +70,6 @@ export default class UserRecipeDetails extends React.Component {
                                         <Col>
                                             <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
                                         </Col>
-
-                                        <Col>
-                                            <h5>{this.state.currentRecipe.readyInMinutes} minutes</h5>
-                                        </Col>
-                                        
                                     </Row>
                                     
 
@@ -79,7 +92,7 @@ export default class UserRecipeDetails extends React.Component {
                                 </div>
                             </Col>
 
-                            <Col>
+                            <Col xs={5}>
                                 {/* recipe's details including ingredients and instruction */}
                                 {this.state.currentRecipe.length !== 0 ? 
                                     <DetailsTab 

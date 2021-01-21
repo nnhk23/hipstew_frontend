@@ -81,12 +81,25 @@ export default class RecipeDetails extends React.Component  {
 
     render(){
         return(
-            <div>
+            <div className='recipe-details'>
                 {/* render servings amount and measurement unit for ingredient */}
                 <Row>
                     <Col>
-                        <h1 className='recipe-title'><Button onClick={this.props.handleBackButton}>Back</Button> {`  ${this.state.currentRecipe.title}`}</h1>
+                        <Row className='title-row'>
+                            
+                                <Col xs={1}>
+                                    <Button onClick={this.props.handleBackButton} className='back-btn'>❮</Button> 
+                                </Col> 
+                                <Col xs={6}>
+                                    <h1 className='recipe-title'>
+                                {`  ${this.state.currentRecipe.title}  `} </h1>
+                                </Col>
 
+                                <Col xs={2}>
+                                    <h5 className='prepTime'>{this.state.currentRecipe.readyInMinutes} minutes</h5>
+                                </Col>
+                           
+                        </Row>
                         {/* render unit toggle button and servings amount */}
                         <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
                     
@@ -95,16 +108,18 @@ export default class RecipeDetails extends React.Component  {
                             <Card.Img variant="top" src={this.state.recipeImage} />
 
                             <Card.Body>
-                                <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button>
+                                {this.props.userId ? 
+                                    <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> : <h5>Please log in to unlock extra functionality :)</h5> 
+                                }
                             </Card.Body>
 
                         </Card>
                     </Col>
 
-                    <Col>
+                    <Col xs={5}>
                         {/* recipe's details including ingredients and instruction */}
                         {this.state.currentRecipe.length !== 0 ? 
-                            <DetailsTab 
+                            <DetailsTab
                                 unit={this.state.unit}
                                 ingredients={this.state.currentRecipe.extendedIngredients} 
                                 // check if analyzed instruction exist
