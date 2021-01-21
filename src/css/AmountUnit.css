@@ -5,3 +5,11 @@
 #servingsInput{
     margin: 0 30px 0 10px;
 }
+
+.radio-btn{
+    border-radius: 8px;
+}
+
+.amount-btns{
+    margin-left: 20px;
+}

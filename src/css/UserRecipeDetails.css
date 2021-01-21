@@ -2,9 +2,12 @@
     margin-top: 20px;
 }
 
-#details-recipe{
+#user-recipe{
     height: 100vh;
-    margin: 60px;
+}
+
+.amount-unit{
+    display: inline-block;
 }
 
 .back-btn{
@@ -15,17 +18,12 @@
     height: 50px;
 }
 
-.back-btn-holder{
-    padding-left: 0;
-}
-
 .prepTime{
     margin: auto;
 }
 
 .title-row{
     margin: 10px;
-    width: 750px;
 }
 
 .recipe-details{

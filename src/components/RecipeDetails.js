@@ -81,59 +81,68 @@ export default class RecipeDetails extends React.Component  {
 
     render(){
         return(
-            <div className='recipe-details'>
+            <div  className='recipe-details'>
                 {/* render servings amount and measurement unit for ingredient */}
-                <Row>
-                    <Col>
-                        <Row className='title-row'>
-                            
-                                <Col xs={1}>
-                                    <Button onClick={this.props.handleBackButton} className='back-btn'>❮</Button> 
-                                </Col> 
-                                <Col xs={6}>
-                                    <h1 className='recipe-title'>
-                                {`  ${this.state.currentRecipe.title}  `} </h1>
-                                </Col>
+                <Row className='title-row'>
+                        
+                            <Col className='back-btn-holder' xs={2}>
+                                <Button onClick={this.props.handleBackButton} className='back-btn'>❮</Button> 
+                            </Col> 
+                            <Col xs={7}>
+                                <h1 className='recipe-title'>
+                            {`  ${this.state.currentRecipe.title}  `} </h1>
+                            </Col>
 
-                                <Col xs={2}>
-                                    <h5 className='prepTime'>{this.state.currentRecipe.readyInMinutes} minutes</h5>
-                                </Col>
-                           
-                        </Row>
-                        {/* render unit toggle button and servings amount */}
-                        <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
-                    
-                        {/* recipe photo and bookmark button */}
-                        <Card style={{ width: '40rem' }} className="text-center recipe-card">
-                            <Card.Img variant="top" src={this.state.recipeImage} />
+                            <Col xs={2}>
+                                <h5 className='prepTime'>{this.state.currentRecipe.readyInMinutes} minutes</h5>
+                            </Col>
+                        
+                    </Row>
 
-                            <Card.Body>
-                                {this.props.userId ? 
-                                    <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> : <h5>Please log in to unlock extra functionality :)</h5> 
-                                }
-                            </Card.Body>
+                    <Row style={{ width: '1400px' }}>
+                        <Col xs={7}>
+                            <div>
+                                {/* render servings amount and measurement unit for ingredient */}
+                                <Row>
+                                    <Col>
+                                        {/* render unit toggle button and servings amount */}
+                                        <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
+                                    </Col>
+                                </Row>
+                
+                                {/* recipe photo and bookmark button */}
+                                <Card style={{ width: '40rem' }} className="text-center recipe-card">
+                                    <Card.Img variant="top" src={this.state.recipeImage} />
 
-                        </Card>
-                    </Col>
+                                    <Card.Body>
+                                        {this.props.userId ? 
+                                            <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> : <h5>Please log in to unlock extra functionality.</h5> 
+                                        }
+                                    </Card.Body>
 
-                    <Col xs={5}>
-                        {/* recipe's details including ingredients and instruction */}
-                        {this.state.currentRecipe.length !== 0 ? 
-                            <DetailsTab
-                                unit={this.state.unit}
-                                ingredients={this.state.currentRecipe.extendedIngredients} 
-                                // check if analyzed instruction exist
-                                instruction={this.state.currentRecipe.analyzedInstructions.length === 0 ?
-                                    this.getAnalyzedInstruction() : 
-                                    this.state.currentRecipe.analyzedInstructions
-                                } 
-                                servings={this.state.servings}
-                                OGservings={this.state.OGservings}
-                            /> : null
-                        }
-                    </Col>
+                                </Card>
+                            </div>
+                        </Col>
+
+                        <Col xs={5}>
+                            {/* recipe's details including ingredients and instruction */}
+                            {this.state.currentRecipe.length !== 0 ? 
+                                <DetailsTab
+                                    unit={this.state.unit}
+                                    ingredients={this.state.currentRecipe.extendedIngredients} 
+                                    // check if analyzed instruction exist
+                                    instruction={this.state.currentRecipe.analyzedInstructions.length === 0 ?
+                                        this.getAnalyzedInstruction() : 
+                                        this.state.currentRecipe.analyzedInstructions
+                                    } 
+                                    servings={this.state.servings}
+                                    OGservings={this.state.OGservings}
+                                /> : null
+                            }
+                        </Col>
                 </Row>
             </div>
         )
     }
 }
+

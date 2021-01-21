@@ -14,7 +14,7 @@ export default class Footer extends React.Component {
                     </Nav.Item>
 
                     <Nav.Item>
-                        <Nav.Link target="_blank" href='dev.to/kimmese'><img className='dev-logo'  src='https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/84_Dev_logo_logos-128.png' alt='dev-logo'/></Nav.Link>
+                        <Nav.Link target="_blank" href='https://dev.to/kimmese'><img className='dev-logo'  src='https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/84_Dev_logo_logos-128.png' alt='dev-logo'/></Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>

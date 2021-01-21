@@ -13,40 +13,46 @@ const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings })
     ]
 
     return(
-        <ButtonGroup toggle className="mb-2">
-            
-            <h5>Servings:</h5>
-            <input 
-                id='servingsInput' 
-                type='number' 
-                min='0' 
-                max='100' 
-                value={servings} 
-                onChange={(e) => {
-                    setServingsAmount(e.target.value)
-                    updateServings(e.target.value)
-                }}
-            />
-
-            {radios.map((radio, idx) => (
-                <ToggleButton
-                    className='unitToggleBtn'
-                    size="sm"
-                    key={idx}
-                    type="radio"
-                    variant="outline-success"
-                    name="radio"
-                    value={radio.value}
-                    checked={radioValue === radio.value}
+        
+        <div className='amount-btns'>   
+            <ButtonGroup toggle className="mb-2 radio-btn">
+                <h5>Servings:</h5>
+                <input 
+                    id='servingsInput' 
+                    type='number' 
+                    min='0' 
+                    max='100' 
+                    value={servings} 
                     onChange={(e) => {
-                        setRadioValue(e.currentTarget.value)
-                        unitConversion(radio.value)
+                        setServingsAmount(e.target.value)
+                        updateServings(e.target.value)
                     }}
-                >
-                    {radio.name}
-                </ToggleButton>
-            ))}
-        </ButtonGroup>
+                />
+        
+
+            
+            
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        className='unitToggleBtn'
+                        size="sm"
+                        key={idx}
+                        type="radio"
+                        variant="outline-success"
+                        name="radio"
+                        value={radio.value}
+                        checked={radioValue === radio.value}
+                        onChange={(e) => {
+                            setRadioValue(e.currentTarget.value)
+                            unitConversion(radio.value)
+                        }}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+
+            </ButtonGroup>
+        </div>
     )
 }
 

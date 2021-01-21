@@ -24,13 +24,13 @@ export default class UserRecipe extends React.Component {
 
     render(){
         return(
-            <div className='recipe_card'>
+            <div id='details-recipe' className='recipe_card'>
                 {/* render 3 columns of recipes */}
                 {this.props.recipeId ? 
                     <UserRecipeDetails history={this.props.history} recipeId={this.props.recipeId} handleDelete={this.handleDelete} /> : 
                         this.props.recipes ? this.props.recipes.length === 0 ? <h5>Recipe List is empty :(...</h5> :
                         this.props.recipes.map(recipe =>
-                            <Card style={{ width: '18rem', height: '20rem' }} >
+                            <Card className='user-recipe-card' style={{ width: '18rem', height: '24rem' }} >
                                 
                             <Link to={`userrecipes/${recipe.recipe_id}`}><Card.Img variant="top" src={recipe.img_url} /></Link>
 
