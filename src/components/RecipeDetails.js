@@ -16,13 +16,27 @@ export default class RecipeDetails extends React.Component  {
         recipeId: null,
         unit: 'us',
         servings: null,
-        OGservings: null
+        OGservings: null,
+        liked: null,
+        userRecipeId: null
     }
 
     componentDidMount() {
         fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
         .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
+
+        this.checkUserBookmarkedList()
+    }
+
+    checkUserBookmarkedList = () => {
+        fetch(`http://localhost:3000/users/${this.props.userId}`)
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.user_recipes.filter(recipe => recipe.recipe_id === this.state.currentRecipe.id).length === 0){
+                this.setState({ liked: false })
+            } else { this.setState({ liked: true })}
+        })
     }
 
     handleBookmark = (recipe) => {
@@ -41,7 +55,6 @@ export default class RecipeDetails extends React.Component  {
         })
         .then(resp => resp.json())
         .then(data => {
-            // debugger
             this.setState({ recipeId: data.id }, () => {
                 // post request to create UserRecipe
                 fetch('http://localhost:3000/user_recipes', {
@@ -56,22 +69,37 @@ export default class RecipeDetails extends React.Component  {
                 })
                 .then(resp => resp.json())
                 .then(data => {
+                    this.setState({ userRecipeId: data.id })
                     alert('Recipe Bookmarked :)')
                 })
             })
         })
-        
-        
-
     }
+
+    handleRemoveBookMark = () => {
+        // debugger
+        fetch(`http://localhost:3000/user_recipes/${this.props.userRecipeId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            alert('Successfully remove recipe from list')
+        })
+    }
+
+    toggleLike = () => this.setState(prevState => {
+        return{
+            liked: !prevState.liked
+        }
+    })
 
     getAnalyzedInstruction = () => {
         fetch(`http://localhost:3000/getrecipeinstruction?sourceUrl=${this.state.currentRecipe.sourceUrl}`)
         .then(resp => resp.json())
-        .then(data => {
-            // debugger
-            this.setState({ currentRecipe: data })
-        })
+        .then(data => this.setState({ currentRecipe: data }))
     }
 
     updateServings = (servings) => this.setState({ servings })
@@ -80,6 +108,8 @@ export default class RecipeDetails extends React.Component  {
     unitConversion = (unit) => this.setState({ unit })
 
     render(){
+        const changeColor = this.state.liked ? 'white' : 'grey'
+        const changeBackground = this.state.liked ? 'red' : 'rgb(220, 215, 215)'
         return(
             <div  className='recipe-details'>
                 {/* render servings amount and measurement unit for ingredient */}
@@ -116,9 +146,15 @@ export default class RecipeDetails extends React.Component  {
 
                                     <Card.Body>
                                         {this.props.userId ? 
-                                            // <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> 
-                                            <button onClick={() => this.handleBookmark(this.state)} className='like-btn'>
-                                                <i className="fa fa-heart" style={{ color: "grey" }}></i>
+                                            <button 
+                                                onClick={() => {
+                                                    this.toggleLike()
+                                                    this.state.liked ?this.handleRemoveBookMark() : this.handleBookmark(this.state)
+                                                }} 
+                                                className='like-btn'
+                                                style={{ background: changeBackground }}
+                                            >
+                                                <i className="fa fa-heart" style={{ color: changeColor }}></i>
                                             </button>
                                             : 
                                             <h5>Please log in to unlock extra functionality.</h5> 

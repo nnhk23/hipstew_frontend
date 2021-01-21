@@ -17,6 +17,10 @@
     height: 100vh;
 }
 
+#user-details-recipe{
+    height: 150vh;
+}
+
 .individual-card{
     height: 200px;
 }
@@ -29,9 +33,4 @@
     margin: 10px auto;
     height: 50px;
     width: 933px;
-}
-
-.ingr-card{
-    margin-left: 5px;
-    margin-right: 5px;
 }

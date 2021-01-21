@@ -92,7 +92,7 @@ export default class IngredientList extends React.Component {
                 }
 
                 {this.state.ingredients.length !== 0 ? 
-                    <Button size="lg" block className='more-btn' variant='outline-warning' onClick={this.handleMoreIngredients}>More Result</Button> 
+                    <Button size="lg" block className='more-btn' variant='warning' onClick={this.handleMoreIngredients}>More Result</Button> 
                     : null
                 }
             </div>  
