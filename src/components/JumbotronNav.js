@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import FoodBg from '../images/rachel-park-hrlvr2ZlUNk-unsplash.jpg'
 
 import '../css/JumbotronNav.css'
 
@@ -63,7 +62,14 @@ export default class JumbotronNav extends React.Component {
                             </ToggleButtonGroup>
 
                             <InputGroup.Append>                          
-                                <Button variant='primary' type="submit" className="mb-2" onClick={(e) => this.props.handleSubmit(e, this.state.ingredient, this.state.radioValue )}>
+                                <Button 
+                                    variant='primary' 
+                                    type="submit" 
+                                    className="mb-2" 
+                                    onClick={(e) => {
+                                        this.props.handleSubmit(e, this.state.ingredient, this.state.radioValue)
+                                        this.setState({ ingredient: '' })
+                                    }}>
                                     Submit
                                 </Button>
                             </InputGroup.Append>

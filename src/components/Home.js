@@ -4,6 +4,7 @@ import RecipeCarousel from './RecipeCarousel'
 import RecipeList from './RecipeList'
 import RecipeDetails from './RecipeDetails'
 import IngredientList from './IngredientList'
+import '../css/App.css'
 
 
 export default class Home extends React.Component {
@@ -16,7 +17,7 @@ export default class Home extends React.Component {
         recipeSource: ''
     }
 
-    handleSubmit = (e, ingredients, searchType) => {
+    handleSubmit = (e, ingredients, searchType) => { 
         e.preventDefault()
         this.setState({ recipe: 'result', ingredients , searchType})
     }
@@ -38,6 +39,7 @@ export default class Home extends React.Component {
                             ingredients={this.state.ingredients} 
                             key='recipe_list' 
                             renderRecipeDetails={this.renderRecipeDetails} 
+                            user={this.props.user}
                         /> : 
                             this.state.recipe === 'result' && this.state.searchType === 'ingredient' ? 
                             <IngredientList 

@@ -4,9 +4,15 @@
 }
 
 .carousel-bg{
-    background-color: rgb(147 150 122);
+    background-color: rgb(218 202 180);
+    width: 850px;
+    margin: auto;
 }
 
 .carousel-control-next, .carousel-control-prev {
-    background-color: #383a2e;
+    background-color: rgb(165 153 137);
+}
+
+.carousel-holder{
+    margin-top: 30px;
 }

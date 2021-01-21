@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500&family=Poppins:wght@200;300;500&display=swap');
+
+.top-nav-btn{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
 .hipstew-logo{
     width: 125px;
 }
@@ -8,6 +15,14 @@
 
 .user-btns{
     padding-left: 10rem;
+}
+
+.logout-btn{
+    margin-left: 550px;
+}
+
+.login-btn{
+    margin-left: 950px;
 }
 
 .top-nav-bg::before{

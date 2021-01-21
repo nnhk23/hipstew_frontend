@@ -8,7 +8,7 @@ import Footer from './components/Footer'
 import UserIngredient from './components/UserIngredient'
 import UserRecipe from './components/UserRecipe'
 import DeleteModal from './components/DeleteModal'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
 class App extends React.Component {
 
@@ -57,7 +57,7 @@ class App extends React.Component {
 
   renderUserIngredients = () => <UserIngredient ingredients={this.state.user.user_ingres} />
 
-  dynamicRecipes = (routerProps) => <UserRecipe recipeId={routerProps.match.params.id} />
+  dynamicRecipes = (routerProps) => <UserRecipe history={this.props.history} recipeId={routerProps.match.params.id} />
 
   handleSignup = (info) => {
     const data = {
@@ -147,11 +147,11 @@ class App extends React.Component {
           <Route exact path='/' component={this.renderHome} />
           <Route exact path='/login' component={this.renderForm} />
           <Route exact path='/signup' component={this.renderForm} />
-          <Route exact path='/editprofile' component={this.renderForm} />
+          {!!localStorage.getItem('jwt') ? <Route exact path='/editprofile' component={this.renderForm}/> : <Redirect to='/'/>}
           {/* <Route exact path='/recipes' component={RecipeList} /> */}
-          <Route exact path='/useringredients' component={this.renderUserIngredients} />
-          <Route exact path='/userrecipes' component={this.renderUserRecipes} />
-          <Route path='/userrecipes/:id' component={this.dynamicRecipes} />
+          {!!localStorage.getItem('jwt') ? <Route exact path='/useringredients' component={this.renderUserIngredients} /> : <Redirect to='/'/>}
+          {!!localStorage.getItem('jwt') ? <Route exact path='/userrecipes' component={this.renderUserRecipes} /> : <Redirect to='/'/>}
+          {!!localStorage.getItem('jwt') ? <Route path='/userrecipes/:id' component={this.dynamicRecipes} /> : <Redirect to='/'/>}
         </Switch>
       </div>
 

@@ -2,10 +2,10 @@
     /* background: url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1347&q=80) center;
     background-size: cover;
     opacity: 0.5; */
-    height: 100px;
     display: inline;
     position: relative;
-    width: 100px;
+    height: 50px;
+    width: 125rem;
 }
 
 .footer::before{
@@ -15,6 +15,16 @@
     background: url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1347&q=80) center;
     background-size: cover;
     opacity: 0.5;
-    height: 40px;
+    height: 50px;
     width: 125rem;
+}
+
+.fb-logo, .ig-logo, .dev-logo, .git-logo, .linkedin-logo{
+    cursor: pointer;
+    height: 35px;
+    opacity: 0.8;
+}
+
+.dev-logo{
+    border-radius: 100%;
 }

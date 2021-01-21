@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
+import '../css/AmountUnit.css'
 
 const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings }) => {
     const [radioValue, setRadioValue] = useState('us')
@@ -12,20 +13,11 @@ const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings })
     ]
 
     return(
-        <ButtonGroup toggle>
-            <h5>{currentRecipe.readyInMinutes} minutes</h5>
-            {/* <DropdownButton 
-                id="dropdown-success-button" 
-                title={`${currentRecipe.servings} Servings`}
-                variant="success"
-                size="sm"
-            >
-                <Dropdown.Item href="#/action-1">{`${currentRecipe.servings} Servings`}</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">{`${currentRecipe.servings} Servings`}</Dropdown.Item>
-            </DropdownButton> */}
-
+        <ButtonGroup toggle className="mb-2">
+            
+            <h5>Servings:</h5>
             <input 
-                id='demoInput' 
+                id='servingsInput' 
                 type='number' 
                 min='0' 
                 max='100' 
@@ -38,10 +30,11 @@ const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings })
 
             {radios.map((radio, idx) => (
                 <ToggleButton
+                    className='unitToggleBtn'
                     size="sm"
                     key={idx}
                     type="radio"
-                    variant="secondary"
+                    variant="outline-success"
                     name="radio"
                     value={radio.value}
                     checked={radioValue === radio.value}
