@@ -116,7 +116,12 @@ export default class RecipeDetails extends React.Component  {
 
                                     <Card.Body>
                                         {this.props.userId ? 
-                                            <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> : <h5>Please log in to unlock extra functionality.</h5> 
+                                            // <Button variant="danger" onClick={() => this.handleBookmark(this.state)}>Bookmark</Button> 
+                                            <button onClick={() => this.handleBookmark(this.state)} className='like-btn'>
+                                                <i className="fa fa-heart" style={{ color: "grey" }}></i>
+                                            </button>
+                                            : 
+                                            <h5>Please log in to unlock extra functionality.</h5> 
                                         }
                                     </Card.Body>
 

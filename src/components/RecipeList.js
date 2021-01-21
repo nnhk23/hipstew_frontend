@@ -33,12 +33,12 @@ export default class RecipeList extends React.Component {
     }
 
     handleMoreRecipes = () => {
-        if (this.state.recipeAmount === 48) {
+        if (this.state.recipeAmount === 45) {
             this.setState({ recipeAmount: 0 })
             alert('Reached the end of result :).')
         } else {
             this.setState(prevState => {
-                return{ recipeAmount: prevState.recipeAmount + 12}
+                return{ recipeAmount: prevState.recipeAmount + 9}
             })
         }
     }
@@ -49,7 +49,7 @@ export default class RecipeList extends React.Component {
             <div className='recipe_card'>
                 {this.state.error ? <h2>{this.state.error}</h2> : 
                     this.state.recipes.length === 0 ? <h2>Loading Results...</h2> :
-                        this.state.recipes.slice(num, num+12).map(recipe => 
+                        this.state.recipes.slice(num, num+9).map(recipe => 
                             <Card style={{ width: '19rem', height: '20rem' }} className='individual-card' >
                                 <Card.Img variant="top" src={recipe.image} />
 
@@ -62,7 +62,7 @@ export default class RecipeList extends React.Component {
                 }
 
                 {this.state.recipes.length !== 0 ? 
-                    <Button size="lg" block className='more-btn' variant='outline-warning' onClick={this.handleMoreRecipes}>More Recipes</Button> 
+                    <Button size="lg" block id='more-btn' variant='warning' onClick={this.handleMoreRecipes}>More Recipes</Button> 
                     : null
                 }
             </div>

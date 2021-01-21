@@ -1,6 +1,8 @@
 .App {
     text-align: center;
-    background-color: rgb(250, 241, 224);
+    /* background-color: rgb(250, 241, 224); */
+    background: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm263-adj-25-e_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=25ef265f653e8c4585be13d4ba5882f5') center;
+    background-size: cover;
     height: 100%;
 }
 
@@ -24,6 +26,8 @@
 
 
 .Home{
-    background-color: rgb(250, 241, 224);
+    /* background-color: rgb(250, 241, 224); */
+    background: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm263-adj-25-e_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=25ef265f653e8c4585be13d4ba5882f5') center;
+    background-size: cover;
     /* height: 100%; */
 }

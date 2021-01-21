@@ -1,34 +1,28 @@
-.recipe_card{
+.ingr-card{
     display: inline-flex;
     flex-wrap: wrap;
     width: 1219px;
-    margin: 70px;
+    margin-top: 150px;
     height: 100vh;
     margin-bottom: 150px;
     justify-content: center;
 }
 
-.user-recipe-card{
+.individual-card{
     margin-left: 5px;
     margin-right: 5px;
 }
 
-#details-recipe{
-    height: 100vh;
+.ingr-img-card{
+    max-height: 286px;
+    max-width: 200px;
+    margin: auto;
 }
 
-.individual-card{
-    height: 200px;
-}
-
-.recipe-img{
-    cursor: pointer;
-}
-
-#more-btn{
+.more-btn{
     margin: 10px auto;
     height: 50px;
-    width: 933px;
+    width: 1180px;;
 }
 
 .ingr-card{
