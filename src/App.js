@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import UserIngredient from './components/UserIngredient'
 import UserRecipe from './components/UserRecipe'
 import DeleteModal from './components/DeleteModal'
+import ChatBot from './components/ChatBot'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 
 class App extends React.Component {
@@ -147,11 +148,16 @@ class App extends React.Component {
           <Route exact path='/' component={this.renderHome} />
           <Route exact path='/login' component={this.renderForm} />
           <Route exact path='/signup' component={this.renderForm} />
+
           {!!localStorage.getItem('jwt') ? <Route exact path='/editprofile' component={this.renderForm}/> : <Redirect to='/'/>}
-          {/* <Route exact path='/recipes' component={RecipeList} /> */}
+
           {!!localStorage.getItem('jwt') ? <Route exact path='/useringredients' component={this.renderUserIngredients} /> : <Redirect to='/'/>}
+
           {!!localStorage.getItem('jwt') ? <Route exact path='/userrecipes' component={this.renderUserRecipes} /> : <Redirect to='/'/>}
+
           {!!localStorage.getItem('jwt') ? <Route path='/userrecipes/:id' component={this.dynamicRecipes} /> : <Redirect to='/'/>}
+
+          {!!localStorage.getItem('jwt') ? <Route path='/chatbot' component={ChatBot} /> : <Redirect to='/'/> }
         </Switch>
       </div>
 

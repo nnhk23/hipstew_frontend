@@ -21,6 +21,7 @@ export default class TopNav extends React.Component {
                                 <Nav.Link href="/editprofile">PROFILE</Nav.Link>
                                 <Nav.Link href="/userrecipes">RECIPES LIST</Nav.Link>
                                 <Nav.Link href="/useringredients">YOUR FRIDGE</Nav.Link>
+                                <Nav.Link href="/chatbot">CHAT BOT</Nav.Link>
                                 <Nav.Link className='user-btns logout-btn' onClick={this.props.handleLogout}>SIGN OUT</Nav.Link>
                             </>                    
                         }
