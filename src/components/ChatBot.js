@@ -18,16 +18,17 @@ export default class ChatBot extends React.Component {
         recipes: [],
         botReply: null,
         userHistory: [],
-        botHistory: []
+        botHistory: [],
+        recipeAmount: 0
     }
 
-    handleChange = (e) => this.setState({ userInput: e.target.value})
+    handleChange = (e) => this.setState({ userInput: e.target.value })
 
     onKeyUp = (e) => {
         if(e.key === "Enter"){
             this.setState(prevState => {
                 return{ 
-                    userHistory: [...prevState.userHistory, e.target.value], 
+                    userHistory: [e.target.value, ...prevState.userHistory], 
                     recipes: [],
                     userInput: ''
                 }
@@ -52,6 +53,14 @@ export default class ChatBot extends React.Component {
             this.getFoodTrivia()
         } else if (userInput.includes('food joke')){
             this.getFoodJoke()
+        } else if (userInput.includes('more')){
+            if (this.state.recipeAmount === 18){
+                this.setState({ recipeAmount: 19 })
+            } else {
+                this.setState(prevState => {
+                    return{ recipeAmount: prevState.recipeAmount + 9}
+                })
+            }
         } else {
             const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -80,7 +89,10 @@ export default class ChatBot extends React.Component {
                 .then(resp => resp.json())
                 .then(data => {
                     this.setState(prevState => {
-                        return{ recipes: data.results, botHistory: [...prevState.botHistory, data.results] }
+                        return{ 
+                            recipes: data.results, 
+                            botHistory: [data.results, ...prevState.botHistory] 
+                        }
                     })
                 })
             })
@@ -95,7 +107,7 @@ export default class ChatBot extends React.Component {
             this.setState(prevState => {
                 return{ 
                     botReply: data.text, 
-                    botHistory: [...prevState.botHistory, data.results] 
+                    botHistory: [data.text, ...prevState.botHistory] 
                 }
             })
         })
@@ -109,7 +121,7 @@ export default class ChatBot extends React.Component {
             this.setState(prevState => {
                 return{ 
                     botReply: data.text, 
-                    botHistory: [...prevState.botHistory, data.results] 
+                    botHistory: [data.text, ...prevState.botHistory] 
                 }
             })
         })
@@ -120,8 +132,18 @@ export default class ChatBot extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             debugger
+            this.setState(prevState => {
+                return{ 
+                    botReply: data.text, 
+                    botHistory: [ data.text, ...prevState.botHistory] 
+                }
+            })
         })
     }
+
+    // saveHistory = (currentRecipeSet) => this.setState(prevState => {
+    //     return{ botHistory: [currentRecipeSet, ...prevState.botHistory] }
+    // })
 
     handleClick = (e) => {
         debugger
@@ -168,44 +190,55 @@ export default class ChatBot extends React.Component {
                     </div> : null
                 }
 
-                <div className='conversation-box'>
-                    <div className='bot-response'>
-                        {this.state.botHistory.length !== 0 ?
-                            this.state.recipes.length !== 0 ? 
-                                <ChatBotRecipes recipes={this.state.recipes} />
-                                : this.state.botReply ? 
-                                <Row>
-                                    <Col>
-                                        <h6>Hippy</h6>
-                                    </Col>
                 
-                                    <Col>
-                                        <h6>{this.state.botReply}</h6>
-                                    </Col>
-                                </Row> : null
-
-                            : null
-                        }
-                    </div>
+                    {/* iterate through userHistory => render matching pair of userInput and botReply */}
 
                     {this.state.userHistory.length !== 0 ? 
-                        this.state.userHistory.map(userInput => 
-                            <div className='user-text'>
-                                <Row>
-                                    <Col>
-                                        <h5>You</h5>
-                                    </Col>
+                        this.state.userHistory.map((userInput, indx) => 
+                            <div className='conversation-box'>
 
-                                    <Col>
-                                        <h6>{userInput}</h6>
-                                    </Col>            
-                                </Row>
+                                <div className='user-text'>
+                                    <Row>
+                                        <Col>
+                                            <h5>You</h5>
+                                        </Col>
+
+                                        <Col>
+                                            <h6>{userInput}</h6>
+                                        </Col>            
+                                    </Row>
+                                    
+                                </div>
+                        
+                    
+                    
                                 
-                            </div>
-                        ) : null
+                                <div className='bot-response'>
+                                    {console.log(this.state.botHistory)}
+                                    {this.state.botHistory.length !== 0 ?
+                                        typeof this.state.botHistory[indx] === "string" ? 
+                                            <Row>
+                                                <Col>
+                                                    <h6>Hippy</h6>
+                                                </Col>
+                            
+                                                <Col>
+                                                    <h6>{this.state.botHistory[indx]}</h6>
+                                                </Col>
+                                            </Row> : 
+                                            Array.isArray(this.state.botHistory[indx]) ?
+                                                <ChatBotRecipes recipes={this.state.botHistory[indx]} recipeAmount={this.state.recipeAmount} 
+                                                // saveHistory={this.saveHistory}
+                                                /> : null
+                                        : null
+                                    }
+                                </div>
+                                
+                            </div>  
+                      ) : null
                     }
                     
-                </div>
+                
                     
             </>
         )
