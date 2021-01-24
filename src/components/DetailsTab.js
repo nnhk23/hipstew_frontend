@@ -33,6 +33,16 @@ const DetailsTab = ({ ingredients, instruction, unit, servings, OGservings }) =>
                 </ListGroup>
             </Tab>
 
+            <Tab eventKey="cookwares" title="Cookwares">
+                {/* render cookware */}
+                <ListGroup variant="flush">
+                        <ListGroup.Item>
+                            <h1>Cookware</h1>
+                        </ListGroup.Item>
+                </ListGroup>
+            </Tab>
+
+
             <Tab eventKey="instruction" title="Instruction">
                 {/* render instruction */}
                 <ListGroup variant="flush">

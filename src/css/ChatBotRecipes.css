@@ -1,0 +1,10 @@
+.chatbot-recipe-result{
+    margin: 20px auto 0 auto;
+    width: 90%;
+}
+
+.conversation-box{
+    width: 60%;
+    display: inline-block;
+}
+

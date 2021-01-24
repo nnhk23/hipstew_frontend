@@ -1,0 +1,32 @@
+.recipe_card{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 1219px;
+    margin: 70px;
+    height: 100vh;
+    margin-bottom: 150px;
+    justify-content: center;
+}
+
+.user-recipe-card{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#details-recipe{
+    height: 100vh;
+}
+
+.individual-card{
+    height: 200px;
+}
+
+.recipe-img{
+    cursor: pointer;
+}
+
+#more-btn{
+    margin: 10px auto;
+    height: 50px;
+    width: 933px;
+}

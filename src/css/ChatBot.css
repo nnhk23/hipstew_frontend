@@ -1,0 +1,25 @@
+.user-text{
+    background-color: #80e0e096;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.bot-response{
+    background-color: #b58e5e73;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+#user-input, #bot-answer{
+    padding: 0;
+}
+
+.chatbot{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+h4{
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
+}

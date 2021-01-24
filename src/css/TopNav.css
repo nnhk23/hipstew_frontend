@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500&family=Poppins:wght@200;300;500&display=swap');
-
 .top-nav-btn{
-    font-family: 'Montserrat', sans-serif;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -13,7 +10,7 @@
     padding-left: 5rem;
 }
 
-.user-btns{
+/* .user-btns{
     padding-left: 10rem;
 }
 
@@ -23,9 +20,9 @@
 
 .login-btn{
     margin-left: 950px;
-}
+} */
 
-.top-nav-bg::before{
+/* .top-nav-bg::before{
     content: '';
     display: block;
     position: absolute;
@@ -34,4 +31,4 @@
     opacity: 0.5;
     height: 101px;
     width: 125rem;   
-}
+} */
