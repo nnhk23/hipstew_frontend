@@ -86,7 +86,7 @@ export default class ChatBot extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             // only get 1 dish out of user's input
-            let dish = data.annotations.filter(annotation => annotation.tag === "dish")[0].annotation
+            let dish = data.annotations.filter(annotation => annotation.tag === "dish").length !== 0 ? data.annotations.filter(annotation => annotation.tag === "dish")[0].annotation : ''
 
             // get all ingredients in user's input in a format: ingre 1, ingre 2
             let ingredients = data.annotations.filter(annotation => annotation.tag === "ingredient").map(ing => ing.annotation).join(', ')
@@ -154,8 +154,8 @@ export default class ChatBot extends React.Component {
 
     render(){
         return(
-            <>
-                <h4>Render Chatbot</h4>
+            <div className='chatbot'>
+                <h4>Let's Chat About Food</h4>
 
                 <div className='human-input'>
                     <InputGroup className="mb-3" style={{width: "600px", margin: "auto"}}>
@@ -198,11 +198,11 @@ export default class ChatBot extends React.Component {
                             <div className='user-text'>
                                 <Row>
                                     <Col>
-                                        <h5>You</h5>
+                                        <h5 id='user-input'>You</h5>
                                     </Col>
 
                                     <Col>
-                                        <h6>{userInput}</h6>
+                                        <h5 id='user-input'>{userInput}</h5>
                                     </Col>            
                                 </Row>
                                 
@@ -213,11 +213,11 @@ export default class ChatBot extends React.Component {
                                     typeof this.state.botHistory[indx] === "string" ? 
                                         <Row>
                                             <Col>
-                                                <h6>Stewy</h6>
+                                                <h5 id='bot-answer'>Stewy</h5>
                                             </Col>
                         
                                             <Col>
-                                                <h6>{this.state.botHistory[indx]}</h6>
+                                                <h5 id='bot-answer'>{this.state.botHistory[indx]}</h5>
                                             </Col>
                                         </Row> : 
                                         Array.isArray(this.state.botHistory[indx]) ?
@@ -231,7 +231,7 @@ export default class ChatBot extends React.Component {
                         </div>  
                     ) : null
                 }   
-            </>
+            </div>
         )
     }
 }

@@ -39,3 +39,8 @@
     position: relative;
 }
 
+.search-bar{
+    padding-left: 200px;
+    padding-right: 200px;
+    margin-top: 20px;
+}

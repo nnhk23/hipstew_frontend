@@ -32,7 +32,7 @@ export default class JumbotronNav extends React.Component {
                 {/* <div className=''> */}
                 <Jumbotron className='jumbotron-card'>
                         <h3 className='greeting'>{this.props.name ? `Welcome, ${this.props.name}` : null}</h3>
-                        <InputGroup className="mb-3">
+                        <InputGroup className="mb-3 search-bar">
                             <Form.Control
                                 className="mb-2 "
                                 id="inlineFormInputName2"
@@ -52,6 +52,7 @@ export default class JumbotronNav extends React.Component {
                                         type="radio"
                                         variant="secondary"
                                         name="radio"
+                                        className='search-option'
                                         value={radio.value}
                                         checked={this.state.radioValue === radio.value}
                                         onChange={(e) => this.handleToggle(e.target.value)}

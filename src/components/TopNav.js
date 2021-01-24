@@ -10,7 +10,7 @@ export default class TopNav extends React.Component {
             <div className='top-nav-bg'>
                 <Navbar bg="light" variant="light">
                     <Nav.Link href="/"><img className='hipstew-logo' src='https://www.brandbucket.com/sites/default/files/logo_uploads/187362/large_hipstew.png' alt='Hipstew-logo' /></Nav.Link>
-                    <Nav className="mr-auto top-nav-btn">
+                    <Nav className="ml-auto top-nav-btn">
                         {!this.props.user ? 
                             <>
                                 <Nav.Link className='user-btns login-btn' href="/login">LOG IN</Nav.Link>
