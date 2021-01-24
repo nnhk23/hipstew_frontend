@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 import UserRecipeDetails from './UserRecipeDetails'
-import '../css/RecipeList.css'
+import '../css/UserRecipe.css'
 
 export default class UserRecipe extends React.Component {
 
@@ -24,7 +24,7 @@ export default class UserRecipe extends React.Component {
 
     render(){
         return(
-            <div id='user-details-recipe' className='recipe_card'>
+            <div className='recipe_card'>
                 {/* render 3 columns of recipes */}
                 {this.props.recipeId ? 
                     <UserRecipeDetails history={this.props.history} recipeId={this.props.recipeId} handleDelete={this.handleDelete} /> : 

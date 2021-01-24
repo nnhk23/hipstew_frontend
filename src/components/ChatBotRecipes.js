@@ -5,44 +5,26 @@ import Row from 'react-bootstrap/Row'
 
 export default class ChatBotRecipes extends React.Component{
 
-    // state = {
-    //     currentRecipeSet: []
-    // }
-
-    // componentDidMount(){
-    //     this.setState({ 
-    //             currentRecipeSet: this.props.recipes.slice(this.props.recipeAmount, this.props.recipeAmount+9) 
-    //         }, () => this.props.saveHistory(this.state.currentRecipeSet)
-    //     )
-        
-    // }
-
     render(){
 
-        const { recipes, recipeAmount } = this.props
+        const { recipes } = this.props
+        console.log(recipes, 'from chatbotrecipes')
 
         return(
             <div className='recipe-card' >
                 <Row>
                     <Col>
-                        <h6>Hippy</h6>
+                        <h6>Stewy</h6>
                     </Col>
 
-                    {recipeAmount !== 19 ?
-                        <Col>
-                            <h6>Here are some recipes for you.</h6>
-                        </Col> 
-                        :
-                        <Col>
-                            <h6>Sorry, there is no more result for this keyword.</h6>
-                        </Col> 
-                    }
+                    <Col>
+                        <h6>Here are some recipes for you.</h6>
+                    </Col> 
                 </Row>
 
                 <Row>
                     <Col style= {{display: 'inline-flex', 'flex-wrap': 'wrap', margin: 'auto'}}>
-                        {recipeAmount !== 19 ? 
-                            recipes.slice(recipeAmount, recipeAmount+9).map(recipe => 
+                        {recipes.map(recipe => 
                                 <Card style={{ width: '19rem', height: '20rem' }}>
                                     <Card.Img variant="top" src={recipe.image} />
 
@@ -51,8 +33,7 @@ export default class ChatBotRecipes extends React.Component{
                                     </Card.Body>
 
                                 </Card>
-                            ) 
-                            : null
+                            )
                         }
                     </Col>
                 </Row>

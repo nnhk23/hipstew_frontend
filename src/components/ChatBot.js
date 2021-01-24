@@ -16,7 +16,6 @@ export default class ChatBot extends React.Component {
         dish: '',
         ingredients: '',
         recipes: [],
-        botReply: null,
         userHistory: [],
         botHistory: [],
         recipeAmount: 0
@@ -28,8 +27,7 @@ export default class ChatBot extends React.Component {
         if(e.key === "Enter"){
             this.setState(prevState => {
                 return{ 
-                    userHistory: [e.target.value, ...prevState.userHistory], 
-                    recipes: [],
+                    userHistory: [e.target.value, ...prevState.userHistory],
                     userInput: ''
                 }
             })
@@ -54,13 +52,23 @@ export default class ChatBot extends React.Component {
         } else if (userInput.includes('food joke')){
             this.getFoodJoke()
         } else if (userInput.includes('more')){
+
             if (this.state.recipeAmount === 18){
-                this.setState({ recipeAmount: 19 })
+                this.setState(prevState => {
+                    return{ 
+                        recipeAmount: 19, 
+                        botHistory: ['Sorry, there is no more recipe for this keyword..', ...prevState.botHistory]
+                    }
+                })
             } else {
                 this.setState(prevState => {
-                    return{ recipeAmount: prevState.recipeAmount + 9}
-                })
+                    return{ recipeAmount: prevState.recipeAmount + 9 }
+                }, () => this.state.recipeAmount !== 0 ? this.setState(prevState => {
+                        return{ botHistory: [prevState.recipes.slice(prevState.recipeAmount, prevState.recipeAmount+9), ...prevState.botHistory] }
+                    }) : null
+                )
             }
+
         } else {
             const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -88,10 +96,11 @@ export default class ChatBot extends React.Component {
                 fetch(`http://localhost:3000/complexrecipesearch?ingredients=${this.state.ingredients}&dish=${this.state.dish}`)
                 .then(resp => resp.json())
                 .then(data => {
+                    debugger
                     this.setState(prevState => {
                         return{ 
-                            recipes: data.results, 
-                            botHistory: [data.results, ...prevState.botHistory] 
+                            recipes: data.results,
+                            botHistory: [data.results.slice(this.state.recipeAmount, this.state.recipeAmount+9), ...prevState.botHistory] 
                         }
                     })
                 })
@@ -103,10 +112,8 @@ export default class ChatBot extends React.Component {
         fetch("http://localhost:3000/foodtrivia")
         .then(resp => resp.json())
         .then(data => {
-            // debugger
             this.setState(prevState => {
                 return{ 
-                    botReply: data.text, 
                     botHistory: [data.text, ...prevState.botHistory] 
                 }
             })
@@ -117,10 +124,8 @@ export default class ChatBot extends React.Component {
         fetch("http://localhost:3000/foodjokes")
         .then(resp => resp.json())
         .then(data => {
-            // debugger
             this.setState(prevState => {
                 return{ 
-                    botReply: data.text, 
                     botHistory: [data.text, ...prevState.botHistory] 
                 }
             })
@@ -131,19 +136,13 @@ export default class ChatBot extends React.Component {
         fetch(`http://localhost:3000/quickanswer?userInput=${this.state.userInput}`)
         .then(resp => resp.json())
         .then(data => {
-            debugger
             this.setState(prevState => {
                 return{ 
-                    botReply: data.text, 
-                    botHistory: [ data.text, ...prevState.botHistory] 
+                    botHistory: [ data.answer, ...prevState.botHistory] 
                 }
             })
         })
     }
-
-    // saveHistory = (currentRecipeSet) => this.setState(prevState => {
-    //     return{ botHistory: [currentRecipeSet, ...prevState.botHistory] }
-    // })
 
     handleClick = (e) => {
         debugger
@@ -190,56 +189,48 @@ export default class ChatBot extends React.Component {
                     </div> : null
                 }
 
-                
-                    {/* iterate through userHistory => render matching pair of userInput and botReply */}
+                {/* iterate through userHistory => render matching pair of userInput and botReply */}
 
-                    {this.state.userHistory.length !== 0 ? 
-                        this.state.userHistory.map((userInput, indx) => 
-                            <div className='conversation-box'>
+                {this.state.userHistory.length !== 0 ? 
+                    this.state.userHistory.map((userInput, indx) => 
+                        <div className='conversation-box'>
 
-                                <div className='user-text'>
-                                    <Row>
-                                        <Col>
-                                            <h5>You</h5>
-                                        </Col>
+                            <div className='user-text'>
+                                <Row>
+                                    <Col>
+                                        <h5>You</h5>
+                                    </Col>
 
-                                        <Col>
-                                            <h6>{userInput}</h6>
-                                        </Col>            
-                                    </Row>
-                                    
-                                </div>
+                                    <Col>
+                                        <h6>{userInput}</h6>
+                                    </Col>            
+                                </Row>
+                                
+                            </div>
+                    
+                            <div className='bot-response'>
+                                {this.state.botHistory.length !== 0 ?
+                                    typeof this.state.botHistory[indx] === "string" ? 
+                                        <Row>
+                                            <Col>
+                                                <h6>Stewy</h6>
+                                            </Col>
                         
-                    
-                    
-                                
-                                <div className='bot-response'>
-                                    {console.log(this.state.botHistory)}
-                                    {this.state.botHistory.length !== 0 ?
-                                        typeof this.state.botHistory[indx] === "string" ? 
-                                            <Row>
-                                                <Col>
-                                                    <h6>Hippy</h6>
-                                                </Col>
+                                            <Col>
+                                                <h6>{this.state.botHistory[indx]}</h6>
+                                            </Col>
+                                        </Row> : 
+                                        Array.isArray(this.state.botHistory[indx]) ?
+                                            <ChatBotRecipes 
+                                                recipes={this.state.botHistory[indx]} 
+                                            /> : null
+                                    : null
+                                }
+                            </div>
                             
-                                                <Col>
-                                                    <h6>{this.state.botHistory[indx]}</h6>
-                                                </Col>
-                                            </Row> : 
-                                            Array.isArray(this.state.botHistory[indx]) ?
-                                                <ChatBotRecipes recipes={this.state.botHistory[indx]} recipeAmount={this.state.recipeAmount} 
-                                                // saveHistory={this.saveHistory}
-                                                /> : null
-                                        : null
-                                    }
-                                </div>
-                                
-                            </div>  
-                      ) : null
-                    }
-                    
-                
-                    
+                        </div>  
+                    ) : null
+                }   
             </>
         )
     }
