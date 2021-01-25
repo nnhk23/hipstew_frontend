@@ -14,9 +14,7 @@ export default class JumbotronNav extends React.Component {
         radioValue: 'recipe'
     }
 
-    handleChange = (e) => {
-        this.setState({ ingredient: e.target.value})
-    }
+    handleChange = (e) => this.setState({ ingredient: e.target.value})
 
     handleToggle = (radioValue) => this.setState({ radioValue })
 
@@ -29,7 +27,6 @@ export default class JumbotronNav extends React.Component {
 
         return(
             <div className='jumbotron-holder'>
-                {/* <div className=''> */}
                 <Jumbotron className='jumbotron-card'>
                         <h3 className='greeting'>{this.props.name ? `Welcome, ${this.props.name}` : null}</h3>
                         <InputGroup className="mb-3 search-bar">

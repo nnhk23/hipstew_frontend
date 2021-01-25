@@ -9,7 +9,6 @@ export default class ChatBotRecipes extends React.Component{
     render(){
 
         const { recipes } = this.props
-        console.log(recipes, 'from chatbotrecipes')
 
         return(
             <div>
@@ -18,13 +17,20 @@ export default class ChatBotRecipes extends React.Component{
                         <h5>Stewy</h5>
                     </Col>
 
-                    <Col>
-                        <h5>Here are some recipes for you.</h5>
-                    </Col> 
+                    {recipes.length !== 0 ?
+                        <Col>
+                            <h5>Here are some recipes for you.</h5>
+                        </Col> 
+                        :
+                        <Col>
+                            <h5>Sorry, there is no more recipe for this keyword..</h5>
+                        </Col>
+                    }
+                    
                 </Row>
 
                 <Row className='chatbot-recipe-result'>
-                    <Col xs={12} style= {{display: 'inline-flex', 'flex-wrap': 'wrap', margin: 'auto'}}>
+                    <Col xs={12} style= {{display: 'inline-flex', flexWrap: 'wrap', margin: 'auto'}}>
                         {recipes.map(recipe => 
                                 <Card style={{ width: '19rem', height: '20rem', 'margin-right': '5px' }}>
                                     <Card.Img variant="top" src={recipe.image} />

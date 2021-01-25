@@ -26,7 +26,9 @@ export default class RecipeDetails extends React.Component  {
         .then(resp => resp.json())
         .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
 
-        this.checkUserBookmarkedList()
+        if (this.props.userId){
+            this.checkUserBookmarkedList()
+        }
     }
 
     checkUserBookmarkedList = () => {
@@ -129,7 +131,7 @@ export default class RecipeDetails extends React.Component  {
                         
                     </Row>
 
-                    <Row style={{ width: '1400px' }}>
+                    <Row style={{ width: '100%' }}>
                         <Col xs={7}>
                             <div>
                                 {/* render servings amount and measurement unit for ingredient */}

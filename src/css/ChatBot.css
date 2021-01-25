@@ -23,3 +23,25 @@ h4{
     font-family: 'Lobster', cursive;
     font-size: 40px;
 }
+
+h1{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.chatbot-instruction{
+    background-color: #0e0b0b8c;
+    width: 60%;
+    padding: 10px;
+    margin: auto;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: pink;
+}
+
+.bot-instruction{
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 87px;
+}
