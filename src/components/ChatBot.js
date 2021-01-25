@@ -7,6 +7,11 @@ import Row from 'react-bootstrap/Row'
 import ChatBotRecipes from './ChatBotRecipes'
 import '../css/ChatBot.css'
 
+import styled, {keyframes} from 'styled-components'
+import { fadeInDown } from 'react-animations'
+
+const Bounce = styled.div`animation: 1s ${keyframes`${fadeInDown}`}`
+
 
 export default class ChatBot extends React.Component {
 
@@ -160,7 +165,7 @@ export default class ChatBot extends React.Component {
         } else {
             input = text.replace(/substitute/gi, "")
         }
-        debugger
+        // debugger
         fetch(`http://localhost:3000/getsubstitution?userInput=${input.replace(" ", "")}`)
         .then(resp => resp.json())
         .then(data => {
@@ -260,7 +265,7 @@ export default class ChatBot extends React.Component {
     }
 
     handleClick = (e) => {
-        debugger
+        // debugger
         // control instruction block
         this.setState(prevState => {
             return{ instruction: !prevState.instruction }
@@ -299,9 +304,11 @@ export default class ChatBot extends React.Component {
                 </div>
 
                 {this.state.instruction ? 
-                    <div className='chatbot-instruction'>
-                        <h1>render examples</h1>
-                    </div> : null
+                    <Bounce>
+                        <div className='chatbot-instruction' >
+                            <h1>render examples</h1>
+                        </div>
+                    </Bounce> : null
                 }
 
                 {/* iterate through userHistory => render matching pair of userInput and botReply */}
