@@ -10,7 +10,7 @@ import '../css/ChatBot.css'
 import styled, {keyframes} from 'styled-components'
 import { fadeInDown } from 'react-animations'
 
-const Bounce = styled.div`animation: 1s ${keyframes`${fadeInDown}`}`
+const FadeInDown = styled.div`animation: 1s ${keyframes`${fadeInDown}`}`
 
 
 export default class ChatBot extends React.Component {
@@ -176,7 +176,6 @@ export default class ChatBot extends React.Component {
             } else {
                 response = data.substitutes[0]
             }
-            debugger
             this.setState(prevState => {
                 return{ 
                     botHistory: [ response, ...prevState.botHistory] 
@@ -188,7 +187,7 @@ export default class ChatBot extends React.Component {
     matchReply = (text) => {
         const trigger = [
             ["hi", "hey", "hello"],
-            ["how are you", "how are things"],
+            ["how are you", "how are things", "how you doing"],
             ["what is going on", "what is up"],
             ["happy", "good", "well", "fantastic", "cool"],
             ["bad", "bored", "tired", "sad"],
@@ -211,7 +210,7 @@ export default class ChatBot extends React.Component {
             ["Glad to hear it"],
             ["Why?", "Cheer up buddy"],
             ["You're welcome", "No problem"],
-            ["Goodbye", "See you later"],
+            ["Goodbye, it was a nice talk", "See you later", "Thank you for talking to me!"],
             [
                 "My name is Stewy. Very nice to meet you :)",
                 "You can call me Stewy :). Nice to meet you!"
@@ -243,11 +242,10 @@ export default class ChatBot extends React.Component {
         )
 
         this.setState(prevState => {
-            return{ 
-                botHistory: [botMsg, ...prevState.botHistory] 
-            }
-        })
-        
+                return{ 
+                    botHistory: [botMsg, ...prevState.botHistory] 
+                }
+            })
     }
 
     generateReply = (trigger, reply, text) => {
@@ -272,6 +270,25 @@ export default class ChatBot extends React.Component {
         })
     }
 
+    botAnswer = (indx) => {
+        // debugger
+        if (this.state.botHistory.length !== 0) {
+            if (typeof this.state.botHistory[indx] === "string") { 
+                return <Row>
+                    <Col>
+                        <h5 style={{ fontWeight: 'bold' }} id='bot-answer'>Stewy</h5>
+                    </Col>
+
+                    <Col>
+                        <h5 id='bot-answer'>{this.state.botHistory[indx]}</h5>
+                    </Col>
+                </Row>
+            } else if (Array.isArray(this.state.botHistory[indx])){
+                return <ChatBotRecipes recipes={this.state.botHistory[indx]} key={indx} /> 
+            }
+        }
+    }
+
     render(){
         return(
             <div className='chatbot'>
@@ -292,7 +309,7 @@ export default class ChatBot extends React.Component {
 
                         <InputGroup.Append>                          
                             <Button 
-                                variant='primary' 
+                                variant='info' 
                                 type="submit" 
                                 className="mb-2" 
                                 onClick={this.handleClick}>
@@ -304,54 +321,47 @@ export default class ChatBot extends React.Component {
                 </div>
 
                 {this.state.instruction ? 
-                    <Bounce>
+                    <FadeInDown>
                         <div className='chatbot-instruction' >
-                            <h1>render examples</h1>
+                            <h1>How to use chat bot:</h1>
+                            <ul className='bot-instruction'>
+                                <li>Say ‘pizza recipes’ or ‘cheesecake recipes with strawberry’ to look up recipes.</li>
+                                <li>Say ‘more’ to load more results.</li>
+                                <li>Say ‘food trivia’ to get random food facts.</li>
+                                <li>Say ‘tell me a food joke’ to get random food jokes.</li>
+                                <li>Say ‘2 lbs to grams’ to get unit conversion.</li>
+                                <li>Say ‘butter substitution’ or ‘what is a substitute for flour’ or ‘butter alternative’ to find food substitutes.</li>
+                            </ul>
                         </div>
-                    </Bounce> : null
+                    </FadeInDown> : null
                 }
 
                 {/* iterate through userHistory => render matching pair of userInput and botReply */}
 
                 {this.state.userHistory.length !== 0 ? 
                     this.state.userHistory.map((userInput, indx) => 
-                        <div className='conversation-box'>
+                        <FadeInDown>
+                            <div className='conversation-box'>
 
-                            <div className='user-text'>
-                                <Row>
-                                    <Col>
-                                        <h5 id='user-input'>You</h5>
-                                    </Col>
+                                <div className='bot-response'>
+                                    {this.botAnswer(indx)}
+                                </div>
 
-                                    <Col>
-                                        <h5 id='user-input'>{userInput}</h5>
-                                    </Col>            
-                                </Row>
-                                
-                            </div>
-                    
-                            <div className='bot-response'>
-                                {this.state.botHistory.length !== 0 ?
-                                    typeof this.state.botHistory[indx] === "string" ? 
-                                        <Row>
-                                            <Col>
-                                                <h5 id='bot-answer'>Stewy</h5>
-                                            </Col>
+                                <div className='user-text'>
+                                    <Row>
+                                        <Col>
+                                            <h5 style={{ fontWeight: 'bold' }} id='user-input'>You</h5>
+                                        </Col>
+
+                                        <Col>
+                                            <h5 id='user-input'>{userInput}</h5>
+                                        </Col>            
+                                    </Row>
+                                    
+                                </div>
                         
-                                            <Col>
-                                                <h5 id='bot-answer'>{this.state.botHistory[indx]}</h5>
-                                            </Col>
-                                        </Row> : 
-                                        Array.isArray(this.state.botHistory[indx]) ?
-                                            <ChatBotRecipes 
-                                                recipes={this.state.botHistory[indx]} 
-                                                key={indx}
-                                            /> : null
-                                    : null
-                                }
-                            </div>
-                            
-                        </div>  
+                            </div>  
+                        </FadeInDown>
                     ) : null
                 }   
             </div>
