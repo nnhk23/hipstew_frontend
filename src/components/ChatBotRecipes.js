@@ -24,7 +24,7 @@ export default class ChatBotRecipes extends React.Component{
                 </Row>
 
                 <Row className='chatbot-recipe-result'>
-                    <Col xs={12} style= {{display: 'inline-flex', 'flex-wrap': 'wrap', margin: 'auto'}}>
+                    <Col xs={12} style= {{display: 'inline-flex', flexWrap: 'wrap', margin: 'auto'}}>
                         {recipes.map(recipe => 
                                 <Card style={{ width: '19rem', height: '20rem', 'margin-right': '5px' }}>
                                     <Card.Img variant="top" src={recipe.image} />
