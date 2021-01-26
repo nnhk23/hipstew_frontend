@@ -21,7 +21,8 @@
 
 h4{
     font-family: 'Lobster', cursive;
-    font-size: 40px;
+    font-size: 60px;
+    margin: 20px;
 }
 
 h1{
@@ -43,5 +44,17 @@ h1{
     font-weight: 400;
     font-size: 18px;
     text-align: left;
-    margin-left: 87px;
+    margin-left: 40px;
+}
+
+.voice-chat-btn {
+    width: 38px;
+    margin-bottom: 8px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#humanInput{
+    border: none;
 }

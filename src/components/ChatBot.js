@@ -8,8 +8,9 @@ import ChatBotRecipes from './ChatBotRecipes'
 import '../css/ChatBot.css'
 
 import styled, {keyframes} from 'styled-components'
-import { fadeInDown } from 'react-animations'
+import { fadeInLeft, fadeInDown } from 'react-animations'
 
+const FadeInLeft = styled.div`animation: 1s ${keyframes`${fadeInLeft}`}`
 const FadeInDown = styled.div`animation: 1s ${keyframes`${fadeInDown}`}`
 
 
@@ -23,7 +24,13 @@ export default class ChatBot extends React.Component {
         recipes: [],
         userHistory: [],
         botHistory: [],
-        recipeAmount: 0
+        recipeAmount: 0,
+        botReply: '',
+        userTranscript: ''
+    }
+
+    componentDidMount() {
+        localStorage.setItem('transcript', '')
     }
 
     handleChange = (e) => this.setState({ userInput: e.target.value })
@@ -33,7 +40,8 @@ export default class ChatBot extends React.Component {
             this.setState(prevState => {
                 return{ 
                     userHistory: [e.target.value, ...prevState.userHistory],
-                    userInput: ''
+                    userInput: '',
+                    botReply: ''
                 }
             })
 
@@ -41,7 +49,7 @@ export default class ChatBot extends React.Component {
         }
     }
 
-    getData = () => {
+    getData = (transcript) => {
         // check if this.state.userInput has 'recipe' / 'food trivia' / 'joke' / a number in it
         // 1. 'recipe' : fetch data from `http://localhost:3000/detectfood?userInput=${this.state.userInput}` to extract food/ingredients
         // 2. 'food trivia' : fetch data from "http://localhost:3000/foodtrivia"
@@ -51,7 +59,7 @@ export default class ChatBot extends React.Component {
 
 
         // accept only a string of words, space and digits
-        let text = this.state.userInput.toLowerCase().replace(/[^\w\s\d]/gi, "");
+        let text = transcript ? transcript : this.state.userInput.toLowerCase().replace(/[^\w\s\d]/gi, "");
 
         // grab only number in text
         let num = this.state.userInput.toLowerCase().replace(/[^\d]/gi, "");
@@ -122,25 +130,25 @@ export default class ChatBot extends React.Component {
     getFoodTrivia = () => {
         fetch("http://localhost:3000/foodtrivia")
         .then(resp => resp.json())
-        .then(data => {
-            this.setState(prevState => {
+        .then(data => this.setState(prevState => {
                 return{ 
-                    botHistory: [data.text, ...prevState.botHistory] 
+                    botHistory: [data.text, ...prevState.botHistory],
+                    botReply: data.text
                 }
-            })
-        })
+            }, () => this.speak(this.state.botReply))
+        )
     }
 
     getFoodJoke = () => {
         fetch("http://localhost:3000/foodjokes")
         .then(resp => resp.json())
-        .then(data => {
-            this.setState(prevState => {
+        .then(data => this.setState(prevState => {
                 return{ 
-                    botHistory: [data.text, ...prevState.botHistory] 
+                    botHistory: [data.text, ...prevState.botHistory],
+                    botReply: data.text
                 }
-            })
-        })
+            }, () => this.speak(this.state.botReply))
+        )
     }
 
     getUnitConversion = () => {
@@ -149,9 +157,10 @@ export default class ChatBot extends React.Component {
         .then(data => {
             this.setState(prevState => {
                 return{ 
-                    botHistory: [ data.answer, ...prevState.botHistory] 
+                    botHistory: [ data.answer, ...prevState.botHistory],
+                    botReply: data.answer
                 }
-            })
+            }, () => this.speak(this.state.botReply))
         })
     }
 
@@ -178,9 +187,10 @@ export default class ChatBot extends React.Component {
             }
             this.setState(prevState => {
                 return{ 
-                    botHistory: [ response, ...prevState.botHistory] 
+                    botHistory: [ response, ...prevState.botHistory],
+                    botReply: response
                 }
-            })
+            }, () => this.speak(this.state.botReply))
         })
     }
 
@@ -243,9 +253,10 @@ export default class ChatBot extends React.Component {
 
         this.setState(prevState => {
                 return{ 
-                    botHistory: [botMsg, ...prevState.botHistory] 
+                    botHistory: [botMsg, ...prevState.botHistory],
+                    botReply: botMsg
                 }
-            })
+            }, () => this.speak(this.state.botReply))
     }
 
     generateReply = (trigger, reply, text) => {
@@ -262,18 +273,13 @@ export default class ChatBot extends React.Component {
         return item;
     }
 
-    handleClick = (e) => {
-        // debugger
-        // control instruction block
-        this.setState(prevState => {
-            return{ instruction: !prevState.instruction }
-        })
-    }
+    // control instruction block
+    handleClick = () => this.setState(prevState => { return{ instruction: !prevState.instruction } })
 
     botAnswer = (indx) => {
-        // debugger
+
         if (this.state.botHistory.length !== 0) {
-            if (typeof this.state.botHistory[indx] === "string") { 
+            if (typeof this.state.botHistory[indx] === "string") {
                 return <Row>
                     <Col>
                         <h5 style={{ fontWeight: 'bold' }} id='bot-answer'>Stewy</h5>
@@ -284,21 +290,68 @@ export default class ChatBot extends React.Component {
                     </Col>
                 </Row>
             } else if (Array.isArray(this.state.botHistory[indx])){
-                return <ChatBotRecipes recipes={this.state.botHistory[indx]} key={indx} /> 
+                return <ChatBotRecipes user={this.props.user} recipes={this.state.botHistory[indx]} key={indx} /> 
             }
         }
     }
 
+    speak = (string) => {
+        const u = new SpeechSynthesisUtterance();
+        const allVoices = speechSynthesis.getVoices();
+        u.voice = allVoices.filter(voice => voice.name === "Alex")[0];
+        u.text = string;
+        u.lang = "en-US";
+        u.volume = 1;
+        u.rate = 1;
+        u.pitch = 1;
+        speechSynthesis.speak(u);
+    }
+
+    handleVoice = (recognition) => {
+        recognition.start()
+
+        recognition.onresult = function (event) {
+            const resultIndx = event.resultIndex
+            const transcript = event.results[resultIndx][0].transcript
+            localStorage.setItem('transcript', transcript)
+        }
+
+        let userTranscript
+
+        setTimeout(() => {
+            userTranscript = localStorage.getItem('transcript')
+        }, 3000);  
+
+        setTimeout(() => {
+            if(userTranscript.length !== 0){
+                this.saveUserTranscript(userTranscript)
+            }
+        }, 4000);
+    }
+
+    saveUserTranscript = (transcript) => {
+        this.setState(prevState => {
+            return{ 
+                userHistory: [transcript, ...prevState.userHistory]
+            }
+        }, () => this.getData(transcript))
+    }
+
     render(){
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+
         return(
             <div className='chatbot'>
                 <h4>Let's Chat About Food</h4>
 
                 <div className='human-input'>
-                    <InputGroup className="mb-3" style={{width: "600px", margin: "auto"}}>
+                    <InputGroup className="mb-3" style={{ width: "600px", margin: "auto" }}>
 
                         <Form.Control
-                            className="mb-2 "
+                            className="mb-2"
                             id="humanInput"
                             type="text" 
                             placeholder="Ask me something"
@@ -306,13 +359,25 @@ export default class ChatBot extends React.Component {
                             onChange={this.handleChange} 
                             onKeyPress={this.onKeyUp}
                         />
+                        
+                        <InputGroup.Append>                          
+                            <img 
+                                src='https://www.flaticon.com/svg/vstatic/svg/876/876329.svg?token=exp=1611619862~hmac=931152e6facf3222b9d625f47671a299'
+                                alt='microphone-icon'
+                                variant='info' 
+                                type="submit" 
+                                className="mb-2 voice-chat-btn" 
+                                onClick={() => this.handleVoice(recognition)}
+                            />
+                        </InputGroup.Append>
 
                         <InputGroup.Append>                          
                             <Button 
                                 variant='info' 
                                 type="submit" 
                                 className="mb-2" 
-                                onClick={this.handleClick}>
+                                onClick={this.handleClick}
+                            >
                                 What can I say?
                             </Button>
                         </InputGroup.Append>
@@ -321,7 +386,7 @@ export default class ChatBot extends React.Component {
                 </div>
 
                 {this.state.instruction ? 
-                    <FadeInDown>
+                    <FadeInLeft>
                         <div className='chatbot-instruction' >
                             <h1>How to use chat bot:</h1>
                             <ul className='bot-instruction'>
@@ -333,7 +398,7 @@ export default class ChatBot extends React.Component {
                                 <li>Say ‘butter substitution’ or ‘what is a substitute for flour’ or ‘butter alternative’ to find food substitutes.</li>
                             </ul>
                         </div>
-                    </FadeInDown> : null
+                    </FadeInLeft> : null
                 }
 
                 {/* iterate through userHistory => render matching pair of userInput and botReply */}
