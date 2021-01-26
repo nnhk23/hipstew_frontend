@@ -2,6 +2,7 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+// import RecipeDetails from './RecipeDetails'
 import '../css/ChatBotRecipes.css'
 
 export default class ChatBotRecipes extends React.Component{
@@ -14,7 +15,7 @@ export default class ChatBotRecipes extends React.Component{
             <div>
                 <Row>
                     <Col>
-                        <h5>Stewy</h5>
+                        <h5 style={{ fontWeight: 'bold' }} >Stewy</h5>
                     </Col>
 
                     {recipes.length !== 0 ?
@@ -36,7 +37,9 @@ export default class ChatBotRecipes extends React.Component{
                                     <Card.Img variant="top" src={recipe.image} />
 
                                     <Card.Body>
-                                        <Card.Title id={recipe.id} >{recipe.title}</Card.Title>
+                                        <Card.Title 
+                                        // onClick={this.handleClick} 
+                                        id={recipe.id} >{recipe.title}</Card.Title>
                                     </Card.Body>
 
                                 </Card>

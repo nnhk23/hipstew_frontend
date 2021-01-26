@@ -34,6 +34,8 @@ class App extends React.Component {
     }
   }
 
+  renderChatBot = () => <ChatBot user={this.state.user} />
+
   // render home page
   renderHome = () => <Home user={this.state.user} history={this.props.history} />
 
@@ -157,7 +159,7 @@ class App extends React.Component {
 
           {!!localStorage.getItem('jwt') ? <Route path='/userrecipes/:id' component={this.dynamicRecipes} /> : <Redirect to='/'/>}
 
-          {!!localStorage.getItem('jwt') ? <Route path='/chatbot' component={ChatBot} /> : <Redirect to='/'/> }
+          {!!localStorage.getItem('jwt') ? <Route path='/chatbot' component={this.renderChatBot} /> : <Redirect to='/'/> }
         </Switch>
       </div>
 
