@@ -26,6 +26,14 @@
     margin: 10px;
 }
 
-.recipe-details{
+.user-recipe-details{
     margin: 20px;
+    padding: 50px;
+    background-color: #ef9ead3d;
+    border-radius: 40px;
+}
+
+.tab-content{
+    overflow-y: scroll;
+    height: 550px;
 }

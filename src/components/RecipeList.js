@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 import '../css/RecipeList.css'
 
 export default class RecipeList extends React.Component {
@@ -34,7 +35,6 @@ export default class RecipeList extends React.Component {
 
     handleMoreRecipes = () => {
         if (this.state.recipeAmount === 45) {
-            this.setState({ recipeAmount: 0 })
             alert('Reached the end of result :).')
         } else {
             this.setState(prevState => {
@@ -48,8 +48,12 @@ export default class RecipeList extends React.Component {
         return(
             <div className='recipe_card'>
                 {this.state.error ? <h2>{this.state.error}</h2> : 
-                    this.state.recipes.length === 0 ? <h2>Loading Results...</h2> :
-                        this.state.recipes.slice(num, num+9).map(recipe => 
+                    this.state.recipes.length === 0 ? <>
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="grow" variant="success" />
+                    </> :
+                        this.state.recipes.slice(0, num+9).map(recipe => 
                             <Card style={{ width: '19rem', height: '20rem' }} className='individual-card' >
                                 <Card.Img variant="top" src={recipe.image} />
 

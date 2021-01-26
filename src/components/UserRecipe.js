@@ -24,7 +24,7 @@ export default class UserRecipe extends React.Component {
 
     render(){
         return(
-            <div className='recipe_card'>
+            <div className='user-cards'>
                 {/* render 3 columns of recipes */}
                 {this.props.recipeId ? 
                     <UserRecipeDetails history={this.props.history} recipeId={this.props.recipeId} handleDelete={this.handleDelete} /> : 

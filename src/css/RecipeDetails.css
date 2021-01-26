@@ -31,8 +31,14 @@
 }
 
 .recipe-details{
-    margin: 110px;
+    padding: 100px;
+    margin: 100px 265px 100px 265px;
+    background-color: #ef9ead3d;
+    border-radius: 40px;
 }
+
+
+/* love button */
 
 .like-btn {
     height: 60px;
@@ -40,4 +46,8 @@
     font-size: 23px;
     border: none;
     border-radius: 100%;
+}
+
+.like-btn:hover, .like-btn:focus{
+    background: maroon;
 }
