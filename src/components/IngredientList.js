@@ -60,7 +60,7 @@ export default class IngredientList extends React.Component {
     }
 
     handleMoreIngredients = () => {
-        if (this.state.ingrAmount === 16) {
+        if (this.state.ingrAmount === 16 || this.state.ingredients.length < this.state.ingrAmount+8) {
             this.setState({ ingrAmount: 0 })
             alert('Reached the end of result :).')
         } else {
@@ -78,7 +78,7 @@ export default class IngredientList extends React.Component {
                     this.state.ingredients.length === 0 ? <h2>Loading Results...</h2> : 
                         this.state.ingredients.slice(num, num+8).map(ingredient => 
                             <Card className='individual-card' style={{ width: '18rem', height: '26rem' }} >
-                                <Card.Img variant="top" src={`https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`} className='ingr-img-card' />
+                                <Card.Img id='ingr-img-card' variant="top" src={`https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`} />
                                 <Card.Title >{ingredient.name}</Card.Title>
 
                                 <Card.Body>

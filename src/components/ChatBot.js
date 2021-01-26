@@ -217,8 +217,8 @@ export default class ChatBot extends React.Component {
                 "Nothing much",
                 "Exciting things!"
             ],
-            ["Glad to hear it"],
-            ["Why?", "Cheer up buddy"],
+            ["Glad to hear it", "Yayyy!! That's the spirit!"],
+            ["There is always a rainbow after the rain!", "Cheer up buddy!"],
             ["You're welcome", "No problem"],
             ["Goodbye, it was a nice talk", "See you later", "Thank you for talking to me!"],
             [

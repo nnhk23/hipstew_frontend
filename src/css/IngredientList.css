@@ -11,12 +11,14 @@
 .individual-card{
     margin-left: 5px;
     margin-right: 5px;
+    border-radius: 10px;
 }
 
-.ingr-img-card{
+#ingr-img-card{
     max-height: 286px;
     max-width: 200px;
     margin: auto;
+    border-radius: 10px;
 }
 
 .more-btn{
