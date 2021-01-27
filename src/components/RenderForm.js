@@ -21,7 +21,15 @@ export default class RenderForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         // debugger
-        e.nativeEvent.submitter.textContent !== 'Delete Account' ? this.props.handleSubmit(this.state) : this.props.handleDelete()
+        if(e.nativeEvent.submitter.textContent !== 'Delete Account'){
+            if(this.state.password === ''){
+                alert("Password can't be blank!")
+            } else {
+                this.props.handleSubmit(this.state)
+            }
+        }  else {
+            this.props.handleDelete()
+        } 
     }
 
     componentDidMount() {
