@@ -9,13 +9,13 @@ export default class ChatBotRecipes extends React.Component{
 
     render(){
 
-        const { recipes } = this.props
+        const { recipes, speak } = this.props
 
         return(
             <div>
                 <Row>
                     <Col>
-                        <h5 style={{ fontWeight: 'bold' }} >Stewy</h5>
+                        <h5 style={{ fontWeight: 'bold', color: '#225f5f' }} >Stewy</h5>
                     </Col>
 
                     {recipes.length !== 0 ?
@@ -25,6 +25,7 @@ export default class ChatBotRecipes extends React.Component{
                         :
                         <Col>
                             <h5>Sorry, there is no more recipe for this keyword..</h5>
+                            {speak('Sorry, there is no more recipe for this keyword.')}
                         </Col>
                     }
                     
@@ -33,7 +34,7 @@ export default class ChatBotRecipes extends React.Component{
                 <Row className='chatbot-recipe-result'>
                     <Col xs={12} style= {{display: 'inline-flex', flexWrap: 'wrap', margin: 'auto'}}>
                         {recipes.map(recipe => 
-                                <Card style={{ width: '19rem', height: '20rem', 'margin-right': '5px' }}>
+                                <Card style={{ width: '19rem', height: '20rem', marginRight: '5px' }}>
                                     <Card.Img variant="top" src={recipe.image} />
 
                                     <Card.Body>

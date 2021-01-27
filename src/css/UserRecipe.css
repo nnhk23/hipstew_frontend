@@ -6,6 +6,10 @@
     height: 100vh;
     margin-bottom: 150px;
     justify-content: center;
+    overflow-y: scroll;
+    background: #cb776f40;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 .user-recipe-card{

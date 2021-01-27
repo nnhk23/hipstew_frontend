@@ -7,5 +7,23 @@
 }
 
 .navbar-expand .navbar-nav .nav-link {
-    padding-left: 5rem;
+    padding-left: 2.5rem;
+}
+
+.navbar-nav{
+    margin-right: 15px;
+}
+
+.icon {
+    width: 45px;
+    border-radius: 8px;
+}
+
+.icon:hover, .icon:focus{
+    transform: scale(1.1);
+    box-shadow: 0px 5px 5px #d23f328c;
+}
+
+.navbar{
+    padding: 0;
 }
