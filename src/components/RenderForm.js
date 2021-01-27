@@ -8,7 +8,8 @@ export default class RenderForm extends React.Component {
         username: '',
         name: '',
         id: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
     }
 
     handleChange = (e) => {
@@ -24,6 +25,8 @@ export default class RenderForm extends React.Component {
         if(e.nativeEvent.submitter.textContent !== 'Delete Account'){
             if(this.state.password === ''){
                 alert("Password can't be blank!")
+            } else if(e.nativeEvent.submitter.textContent==='Update' & this.state.password !== this.state.password_confirmation){
+                alert("Password confirmation have to match password!")
             } else {
                 this.props.handleSubmit(this.state)
             }
@@ -101,6 +104,19 @@ export default class RenderForm extends React.Component {
                             onChange={this.handleChange} 
                         />
                     </Form.Group>
+
+                    {this.props.name === "Update" ?
+                        <Form.Group >
+                            <Form.Label htmlFor="password">Password Confirmation</Form.Label>
+                            <Form.Control 
+                                id='form-input-field'
+                                type="password" 
+                                name="password_confirmation" 
+                                value={this.state.password_confirmation} 
+                                onChange={this.handleChange} 
+                            />
+                        </Form.Group> : null
+                    }
 
                     {this.props.name === 'Update' ? 
                         <>

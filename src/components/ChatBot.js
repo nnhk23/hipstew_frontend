@@ -195,6 +195,19 @@ export default class ChatBot extends React.Component {
         })
     }
 
+    // getDataFromUserInput = (url) => {
+    //     fetch(url)
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //         this.setState(prevState => {
+    //             return{ 
+    //                 botHistory: [ data.answer, ...prevState.botHistory],
+    //                 botReply: data.answer
+    //             }
+    //         }, () => this.speak(this.state.botReply))
+    //     })
+    // }
+
     matchReply = (text) => {
         const trigger = [
             ["hi", "hey", "hello"],
@@ -325,6 +338,7 @@ export default class ChatBot extends React.Component {
         setTimeout(() => {
             userTranscript = localStorage.getItem('transcript')
         }, 3000);  
+        
 
         setTimeout(() => {
             if(userTranscript.length !== 0){

@@ -141,36 +141,37 @@ class App extends React.Component {
   closeModal = () => this.setState({ deleteModal: false })
 
   render(){
-  return (
-    <div className="App">
-      <TopNav handleLogout={this.handleLogout} user={this.state.user}/>
+    
+    return (
+      <div className="App">
+        <TopNav handleLogout={this.handleLogout} user={this.state.user}/>
 
-      <div className='Home'>
-        <Switch>
-          <Route exact path='/' component={this.renderHome} />
-          <Route exact path='/login' component={this.renderForm} />
-          <Route exact path='/signup' component={this.renderForm} />
+        <div className='Home'>
+          <Switch>
+            <Route exact path='/' component={this.renderHome} />
+            <Route exact path='/login' component={this.renderForm} />
+            <Route exact path='/signup' component={this.renderForm} />
 
-          {!!localStorage.getItem('jwt') ? <Route exact path='/editprofile' component={this.renderForm}/> : <Redirect to='/'/>}
+            {!!localStorage.getItem('jwt') ? <Route exact path='/editprofile' component={this.renderForm}/> : <Redirect to='/'/>}
 
-          {!!localStorage.getItem('jwt') ? <Route exact path='/useringredients' component={this.renderUserIngredients} /> : <Redirect to='/'/>}
+            {!!localStorage.getItem('jwt') ? <Route exact path='/useringredients' component={this.renderUserIngredients} /> : <Redirect to='/'/>}
 
-          {!!localStorage.getItem('jwt') ? <Route exact path='/userrecipes' component={this.renderUserRecipes} /> : <Redirect to='/'/>}
+            {!!localStorage.getItem('jwt') ? <Route exact path='/userrecipes' component={this.renderUserRecipes} /> : <Redirect to='/'/>}
 
-          {!!localStorage.getItem('jwt') ? <Route path='/userrecipes/:id' component={this.dynamicRecipes} /> : <Redirect to='/'/>}
+            {!!localStorage.getItem('jwt') ? <Route path='/userrecipes/:id' component={this.dynamicRecipes} /> : <Redirect to='/'/>}
 
-          {!!localStorage.getItem('jwt') ? <Route path='/chatbot' component={this.renderChatBot} /> : <Redirect to='/'/> }
-        </Switch>
+            {!!localStorage.getItem('jwt') ? <Route path='/chatbot' component={this.renderChatBot} /> : <Redirect to='/'/> }
+          </Switch>
+        </div>
+
+        {/* render delete confirmation modal */}
+        {this.state.deleteModal ? <DeleteModal closeModal={this.closeModal} show={this.state.deleteModal} handleDelete={this.handleDelete}/> : null}
+
+        <Footer />
+
       </div>
-
-      {/* render delete confirmation modal */}
-      {this.state.deleteModal ? <DeleteModal closeModal={this.closeModal} show={this.state.deleteModal} handleDelete={this.handleDelete}/> : null}
-
-      <Footer />
-
-    </div>
- 
-  );
+  
+    );
   }
 }
 
