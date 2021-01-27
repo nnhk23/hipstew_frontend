@@ -3,7 +3,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import '../css/AmountUnit.css'
 
-const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings }) => {
+const AmountUnit = ({ unitConversion, updateServings, servings }) => {
     const [radioValue, setRadioValue] = useState('us')
     const [servingsAmount, setServingsAmount] = useState(servings)
 
@@ -29,9 +29,6 @@ const AmountUnit = ({ currentRecipe, unitConversion, updateServings, servings })
                     }}
                 />
         
-
-            
-            
                 {radios.map((radio, idx) => (
                     <ToggleButton
                         className='unitToggleBtn'

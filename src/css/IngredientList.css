@@ -6,17 +6,23 @@
     height: 100vh;
     margin-bottom: 150px;
     justify-content: center;
+    overflow-y: scroll;
+    background: #cb776f40;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 .individual-card{
     margin-left: 5px;
     margin-right: 5px;
+    border-radius: 10px;
 }
 
-.ingr-img-card{
+#ingr-img-card{
     max-height: 286px;
     max-width: 200px;
     margin: auto;
+    border-radius: 10px;
 }
 
 .more-btn{

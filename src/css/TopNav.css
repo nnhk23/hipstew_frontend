@@ -7,28 +7,23 @@
 }
 
 .navbar-expand .navbar-nav .nav-link {
-    padding-left: 5rem;
+    padding-left: 2.5rem;
 }
 
-/* .user-btns{
-    padding-left: 10rem;
+.navbar-nav{
+    margin-right: 15px;
 }
 
-.logout-btn{
-    margin-left: 550px;
+.icon {
+    width: 45px;
+    border-radius: 8px;
 }
 
-.login-btn{
-    margin-left: 950px;
-} */
+.icon:hover, .icon:focus{
+    transform: scale(1.1);
+    box-shadow: 0px 5px 5px #d23f328c;
+}
 
-/* .top-nav-bg::before{
-    content: '';
-    display: block;
-    position: absolute;
-    background: url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1347&q=80) bottom;
-    background-size: cover;
-    opacity: 0.5;
-    height: 101px;
-    width: 125rem;   
-} */
+.navbar{
+    padding: 0;
+}

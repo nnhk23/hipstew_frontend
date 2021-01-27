@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 import '../css/IngredientList.css'
 
 export default class IngredientList extends React.Component {
@@ -60,12 +61,11 @@ export default class IngredientList extends React.Component {
     }
 
     handleMoreIngredients = () => {
-        if (this.state.ingrAmount === 16) {
-            this.setState({ ingrAmount: 0 })
+        if (this.state.ingrAmount === 18 || this.state.ingredients.length < this.state.ingrAmount+9) {
             alert('Reached the end of result :).')
         } else {
             this.setState(prevState => {
-                return{ ingrAmount: prevState.ingrAmount + 8}
+                return{ ingrAmount: prevState.ingrAmount + 9}
             })
         }
     }
@@ -75,10 +75,14 @@ export default class IngredientList extends React.Component {
         return(
             <div className='ingr-card'>
                 {this.state.error ? <h2>{this.state.error}</h2> : 
-                    this.state.ingredients.length === 0 ? <h2>Loading Results...</h2> : 
-                        this.state.ingredients.slice(num, num+8).map(ingredient => 
+                    this.state.ingredients.length === 0 ? <>
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="grow" variant="success" />
+                    </> : 
+                        this.state.ingredients.slice(0, num+9).map(ingredient => 
                             <Card className='individual-card' style={{ width: '18rem', height: '26rem' }} >
-                                <Card.Img variant="top" src={`https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`} className='ingr-img-card' />
+                                <Card.Img id='ingr-img-card' variant="top" src={`https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`} />
                                 <Card.Title >{ingredient.name}</Card.Title>
 
                                 <Card.Body>

@@ -6,9 +6,11 @@
     height: 100vh;
     margin-bottom: 150px;
     justify-content: center;
+    padding-top: 60px;
 }
 
 .individual-ingr-card{
     margin-left: 5px;
     margin-right: 5px;
+    border-radius: 10px;
 }

@@ -7,10 +7,12 @@
     background-color: rgb(218 202 180);
     width: 850px;
     margin: 32px auto;
+    border-radius: 15px;
 }
 
 .carousel-control-next, .carousel-control-prev {
     background-color: rgb(165 153 137);
+    border-radius: 15px;
 }
 
 /* .carousel-holder{

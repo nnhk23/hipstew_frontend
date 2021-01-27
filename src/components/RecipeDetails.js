@@ -35,9 +35,13 @@ export default class RecipeDetails extends React.Component  {
         fetch(`http://localhost:3000/users/${this.props.userId}`)
         .then(resp => resp.json())
         .then(data => {
-            if (data.user_recipes.filter(recipe => recipe.recipe_id === this.state.currentRecipe.id).length === 0){
+            // check if user already liked this recipe
+            const bookmarkedRecipe = data.user_recipes.filter(recipe => recipe.recipe_id === this.state.currentRecipe.id)
+
+            if (bookmarkedRecipe.length === 0){
                 this.setState({ liked: false })
-            } else { this.setState({ liked: true })}
+            } else { 
+                this.setState({ liked: true, userRecipeId: bookmarkedRecipe[0].user_recipe_id })}
         })
     }
 
@@ -79,8 +83,8 @@ export default class RecipeDetails extends React.Component  {
     }
 
     handleRemoveBookMark = () => {
-        // debugger
-        fetch(`http://localhost:3000/user_recipes/${this.props.userRecipeId}`, {
+        debugger
+        fetch(`http://localhost:3000/user_recipes/${this.state.userRecipeId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type' : 'application/json'
@@ -128,62 +132,61 @@ export default class RecipeDetails extends React.Component  {
                             <Col xs={2}>
                                 <h5 className='prepTime'>{this.state.currentRecipe.readyInMinutes} minutes</h5>
                             </Col>
+
+                            <Row style={{ width: '100%', marginTop: '10px' }}>
+                                <Col>
+                                    {/* render unit toggle button and servings amount */}
+                                    <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
+                                </Col>
+                            </Row>
                         
-                    </Row>
-
-                    <Row style={{ width: '100%' }}>
-                        <Col xs={7}>
-                            <div>
-                                {/* render servings amount and measurement unit for ingredient */}
-                                <Row>
-                                    <Col>
-                                        {/* render unit toggle button and servings amount */}
-                                        <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
-                                    </Col>
-                                </Row>
-                
-                                {/* recipe photo and bookmark button */}
-                                <Card style={{ width: '40rem' }} className="text-center recipe-card">
-                                    <Card.Img variant="top" src={this.state.recipeImage} />
-
-                                    <Card.Body>
-                                        {this.props.userId ? 
-                                            <button 
-                                                onClick={() => {
-                                                    this.toggleLike()
-                                                    this.state.liked ?this.handleRemoveBookMark() : this.handleBookmark(this.state)
-                                                }} 
-                                                className='like-btn'
-                                                style={{ background: changeBackground }}
-                                            >
-                                                <i className="fa fa-heart" style={{ color: changeColor }}></i>
-                                            </button>
-                                            : 
-                                            <h5>Please log in to unlock extra functionality.</h5> 
-                                        }
-                                    </Card.Body>
-
-                                </Card>
-                            </div>
-                        </Col>
-
-                        <Col xs={5}>
-                            {/* recipe's details including ingredients and instruction */}
-                            {this.state.currentRecipe.length !== 0 ? 
-                                <DetailsTab
-                                    unit={this.state.unit}
-                                    ingredients={this.state.currentRecipe.extendedIngredients} 
-                                    // check if analyzed instruction exist
-                                    instruction={this.state.currentRecipe.analyzedInstructions.length === 0 ?
-                                        this.getAnalyzedInstruction() : 
-                                        this.state.currentRecipe.analyzedInstructions
-                                    } 
-                                    servings={this.state.servings}
-                                    OGservings={this.state.OGservings}
-                                /> : null
-                            }
-                        </Col>
                 </Row>
+
+                <Row style={{ width: '100%', marginTop: '20px' }}>
+                    <Col xs={7}>
+                        <div>
+                            {/* recipe photo and bookmark button */}
+                            <Card style={{ width: '40rem', marginTop: '0' }} className="text-center recipe-card">
+                                <Card.Img variant="top" src={this.state.recipeImage} />
+
+                                <Card.Body>
+                                    {this.props.userId ? 
+                                        <button 
+                                            onClick={() => {
+                                                this.toggleLike()
+                                                this.state.liked ? this.handleRemoveBookMark() : this.handleBookmark(this.state)
+                                            }}
+                                            className='like-btn'
+                                            style={{ background: changeBackground }}
+                                        >
+                                            <i className="fa fa-heart" style={{ color: changeColor }}></i>
+                                        </button>
+                                        : 
+                                        <h5>Please log in to unlock extra functionality.</h5> 
+                                    }
+                                </Card.Body>
+
+                            </Card>
+                        </div>
+                    </Col>
+
+                    <Col xs={5}>
+                        {/* recipe's details including ingredients and instruction */}
+                        {this.state.currentRecipe.length !== 0 ? 
+                            <DetailsTab
+                                unit={this.state.unit}
+                                ingredients={this.state.currentRecipe.extendedIngredients} 
+                                // check if analyzed instruction exist
+                                instruction={this.state.currentRecipe.analyzedInstructions.length === 0 ?
+                                    this.getAnalyzedInstruction() : 
+                                    this.state.currentRecipe.analyzedInstructions
+                                } 
+                                servings={this.state.servings}
+                                OGservings={this.state.OGservings}
+                            /> : null
+                        }
+                    </Col>
+            </Row>
             </div>
         )
     }

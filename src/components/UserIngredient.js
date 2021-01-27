@@ -26,7 +26,7 @@ export default class UserIngredient extends React.Component {
                 this.props.ingredients.map(ingredient =>
                     <Card style={{ width: '18rem', height: '23rem' }} className='individual-ingr-card' >
                         
-                    <Card.Img variant="top" src={ingredient.img_url} />
+                    <Card.Img id='ingr-img-card' variant="top" src={ingredient.img_url} />
 
                         <Card.Body>
                             <Card.Title onClick={this.handleClick}>{ingredient.name}</Card.Title>

@@ -9,11 +9,13 @@ const DetailsTab = ({ ingredients, instruction, unit, servings, OGservings }) =>
 
     const [key, setKey] = useState('ingredients')
 
+    const equipments = instruction ? instruction[0].steps.map(step => step.equipment) : []
+
     return(
         <Tabs
             id="controlled-tab-example"
             activeKey={key}
-            onSelect={(k) => setKey(k)}
+            onSelect={(k) => {setKey(k)}}
         >
 
             <Tab eventKey="ingredients" title="Ingredients">
@@ -33,12 +35,32 @@ const DetailsTab = ({ ingredients, instruction, unit, servings, OGservings }) =>
                 </ListGroup>
             </Tab>
 
-            <Tab eventKey="cookwares" title="Cookwares">
+            <Tab eventKey="cookwares" title="Cookwares" style={{ height: 'auto' }}>
                 {/* render cookware */}
                 <ListGroup variant="flush">
-                        <ListGroup.Item>
-                            <h1>Cookware</h1>
-                        </ListGroup.Item>
+                    {equipments.length !== 0 ?
+                        equipments.map((equipmentArr, idx) => 
+                            <div>
+                                {equipmentArr.length !== 0 ?
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col xs={2} style={{ color: '#6b351ca6' }}> 
+                                                <h2>{idx+1}</h2> 
+                                            </Col>   
+
+                                            <Col>
+                                                {equipmentArr.map(equipment => 
+                                                    <Row>
+                                                        <Col>{equipment.name}</Col>
+                                                        <Col><img src={`https://spoonacular.com/cdn/equipment_100x100/${equipment.image}`} alt='equipment-img' /></Col>
+                                                    </Row>
+                                                )}
+                                            </Col>
+                                        </Row> 
+                                    </ListGroup.Item> : null
+                                }
+                            </div>) : <h5>No equipment required</h5>
+                    }
                 </ListGroup>
             </Tab>
 
@@ -48,8 +70,10 @@ const DetailsTab = ({ ingredients, instruction, unit, servings, OGservings }) =>
                 <ListGroup variant="flush">
                     {instruction ? instruction[0].steps.map(step => 
                         <ListGroup.Item>
-                            <h2>Step {step.number}:</h2>
-                            <p>{step.step}</p>
+                            <Row>
+                                <Col xs={2} style={{ color: '#6b351ca6' }}> <h2>{step.number}</h2> </Col>                            
+                                <Col> <p style={{ textAlign: 'left' }}>{step.step}</p> </Col>
+                            </Row>
                         </ListGroup.Item>
                     ) : null}
                 </ListGroup>

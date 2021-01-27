@@ -22,7 +22,8 @@ export default class UserRecipeDetails extends React.Component {
     componentDidMount() {
         fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
-        .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
+        .then(data => {
+            this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings })})
     }
 
     getAnalyzedInstruction = () => {
@@ -42,7 +43,7 @@ export default class UserRecipeDetails extends React.Component {
 
     render(){
         return(
-            <div id='user-recipe' className='recipe-details'>
+            <div id='user-recipe' className='user-recipe-details'>
                 {this.state.currentRecipe.length !== 0 ? 
                     <>
 
@@ -68,7 +69,7 @@ export default class UserRecipeDetails extends React.Component {
                                     {/* render servings amount and measurement unit for ingredient */}
                                     <Row>
                                         <Col>
-                                            <AmountUnit currentRecipe={this.state.currentRecipe} unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
+                                            <AmountUnit unitConversion={this.unitConversion} updateServings={this.updateServings} servings={this.state.servings}/>
                                         </Col>
                                     </Row>
                                     
@@ -102,7 +103,7 @@ export default class UserRecipeDetails extends React.Component {
                                         instruction={this.state.currentRecipe.analyzedInstructions.length === 0 ?
                                             this.getAnalyzedInstruction() : 
                                             this.state.currentRecipe.analyzedInstructions
-                                        } 
+                                        }
                                         servings={this.state.servings}
                                         OGservings={this.state.OGservings}
                                     /> : null

@@ -12,7 +12,6 @@ export default class RecipeCarousel extends React.Component {
     //     fetch('http://localhost:3000/getrandomrecipes')
     //     .then(resp => resp.json())
     //     .then(data => {
-    //         debugger
     //         this.setState({ recipes: data.recipes })})
     // }
 

@@ -65,10 +65,10 @@ export default class ChatBot extends React.Component {
         let num = this.state.userInput.toLowerCase().replace(/[^\d]/gi, "");
 
         if(text.includes('recipe')){
-            this.detectFoodInText()
+            this.detectFoodInText(transcript)
         } else if (text.includes('food trivia')){
             this.getFoodTrivia()
-        } else if (text.includes('food joke')){
+        } else if (text.includes('joke')){
             this.getFoodJoke()
         } else if (text.includes('more')){
 
@@ -79,14 +79,14 @@ export default class ChatBot extends React.Component {
                         recipeAmount: 19, 
                         botHistory: ['Sorry, there is no more recipe for this keyword..', ...prevState.botHistory]
                     }
-                })
+                }, () => this.speak('Sorry, there is no more recipe for this keyword..'))
             } else {
                 // save previous results to bot history and update recipe amount
                 this.setState(prevState => {
                     return{ recipeAmount: prevState.recipeAmount + 9 }
                 }, () => this.state.recipeAmount !== 0 ? this.setState(prevState => {
                         return{ botHistory: [prevState.recipes.slice(prevState.recipeAmount, prevState.recipeAmount+9), ...prevState.botHistory] }
-                    }) : null
+                    }, () => this.speak('Here are some more recipes for you.')) : null
                 )
             }
 
@@ -101,8 +101,9 @@ export default class ChatBot extends React.Component {
     }
         
 
-    detectFoodInText = () => {
-        fetch(`http://localhost:3000/detectfood?userInput=${this.state.userInput}`)
+    detectFoodInText = (transcript) => {
+        const userMsg = transcript ? transcript : this.state.userInput
+        fetch(`http://localhost:3000/detectfood?userInput=${userMsg}`)
         .then(resp => resp.json())
         .then(data => {
             // only get 1 dish out of user's input
@@ -121,7 +122,7 @@ export default class ChatBot extends React.Component {
                             recipes: data.results,
                             botHistory: [data.results.slice(this.state.recipeAmount, this.state.recipeAmount+9), ...prevState.botHistory] 
                         }
-                    })
+                    }, () => this.speak('Here are some recipes for you.'))
                 })
             })
         })
@@ -199,7 +200,7 @@ export default class ChatBot extends React.Component {
             ["hi", "hey", "hello"],
             ["how are you", "how are things", "how you doing"],
             ["what is going on", "what is up"],
-            ["happy", "good", "well", "fantastic", "cool"],
+            ["happy", "good", "amazing", "fantastic", "cool"],
             ["bad", "bored", "tired", "sad"],
             ["thanks", "thank you"],
             ["bye", "good bye", "goodbye"],
@@ -207,30 +208,31 @@ export default class ChatBot extends React.Component {
         ];
             
         const reply = [
-            ["Hello!", "Hi!", "Hey!", "Hi there!"],
+            [`Hello ${this.props.user.name}!`, `Hey there, ${this.props.user.name}!`, `Hi ${this.props.user.name}, I'm so happy to assist you!`],
             [
-                "Fine... how are you?",
-                "Pretty well, how are you?",
-                "Fantastic, how are you?"
+                "I'm doing good... how are you?",
+                "I feel kind of lonely, how are you?",
+                "I feel happy, how are you?"
             ],
             [
                 "Nothing much",
-                "Exciting things!"
+                "Exciting things!",
+                "I'm happy to see you!"
             ],
-            ["Glad to hear it"],
-            ["Why?", "Cheer up buddy"],
-            ["You're welcome", "No problem"],
-            ["Goodbye, it was a nice talk", "See you later", "Thank you for talking to me!"],
+            ["Glad to hear it", "Yayyy!! That's the spirit!"],
+            ["There is always a rainbow after the rain!", "You should try my food joke."],
+            ["You're welcome", "No problem", "It's my pleasure!"],
+            ["Goodbye, it was a nice talk", "See you later!", "Thank you for talking to me!"],
             [
-                "My name is Stewy. Very nice to meet you :)",
-                "You can call me Stewy :). Nice to meet you!"
+                "My name is Stewy. Very nice to meet you!",
+                "You can call me Stewy. Nice to meet you!"
             ]
         ];
         
         const alternative = [
             "Same",
             "Go on...",
-            "Try again",
+            "Try again please?",
             "I'm listening...",
             "Bro..."
         ];
@@ -282,7 +284,7 @@ export default class ChatBot extends React.Component {
             if (typeof this.state.botHistory[indx] === "string") {
                 return <Row>
                     <Col>
-                        <h5 style={{ fontWeight: 'bold' }} id='bot-answer'>Stewy</h5>
+                        <h5 style={{ fontWeight: 'bold' ,color: '#225f5f' }} id='bot-answer'>Stewy</h5>
                     </Col>
 
                     <Col>
@@ -290,11 +292,12 @@ export default class ChatBot extends React.Component {
                     </Col>
                 </Row>
             } else if (Array.isArray(this.state.botHistory[indx])){
-                return <ChatBotRecipes user={this.props.user} recipes={this.state.botHistory[indx]} key={indx} /> 
+                return <ChatBotRecipes user={this.props.user} recipes={this.state.botHistory[indx]} key={indx} speak={this.speak}/> 
             }
         }
     }
 
+    // bot reads text
     speak = (string) => {
         const u = new SpeechSynthesisUtterance();
         const allVoices = speechSynthesis.getVoices();
@@ -307,6 +310,7 @@ export default class ChatBot extends React.Component {
         speechSynthesis.speak(u);
     }
 
+    // translating user's voice to text
     handleVoice = (recognition) => {
         recognition.start()
 
@@ -396,7 +400,13 @@ export default class ChatBot extends React.Component {
                                 <li>Say ‘tell me a food joke’ to get random food jokes.</li>
                                 <li>Say ‘2 lbs to grams’ to get unit conversion.</li>
                                 <li>Say ‘butter substitution’ or ‘what is a substitute for flour’ or ‘butter alternative’ to find food substitutes.</li>
+                                <li>Say ‘hi/hello/hey to get greeted by Stewy.</li>
+                                <li>Converse with Stewy using phrases like: ‘how are you?’, ‘how are things?’, ‘how you doing?’.</li>
+                                <li>Tell Stewy about your feelings: ‘I feel sad/happy/well/cool/tired/etc’.</li>
+                                <li>Ask Stewy to introduce himself: ‘what is your name?’ </li>
+                                <li>Say ‘thank you’/'bye' to Stewy before you leave :).</li>
                             </ul>
+
                         </div>
                     </FadeInLeft> : null
                 }
@@ -415,7 +425,7 @@ export default class ChatBot extends React.Component {
                                 <div className='user-text'>
                                     <Row>
                                         <Col>
-                                            <h5 style={{ fontWeight: 'bold' }} id='user-input'>You</h5>
+                                            <h5 style={{ fontWeight: 'bold', color: '#6f6960' }} id='user-input'>You</h5>
                                         </Col>
 
                                         <Col>
