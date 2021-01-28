@@ -28,6 +28,7 @@ export default class IngredientList extends React.Component {
     }
 
     handleBookmark = (ingredient) => {
+        debugger
         const { name, image } = ingredient
         fetch('http://localhost:3000/ingredients', {
             method: 'POST',

@@ -31,7 +31,6 @@ export default class TopNav extends React.Component {
                         }
                     </Nav>
                 </Navbar>
-                {/* render logo, log in / log out - profile - recipe button conditionally */}
             </div>
         )
     }
