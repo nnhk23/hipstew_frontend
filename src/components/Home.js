@@ -18,7 +18,8 @@ export default class Home extends React.Component {
     }
 
     handleSubmit = (e, ingredients, searchType) => { 
-        e.preventDefault()
+        // e.preventDefault()
+        // debugger
         this.setState({ recipe: 'result', ingredients , searchType})
     }
 

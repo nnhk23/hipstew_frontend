@@ -74,10 +74,7 @@ export default class RecipeDetails extends React.Component  {
                     })
                 })
                 .then(resp => resp.json())
-                .then(data => {
-                    this.setState({ userRecipeId: data.id })
-                    alert('Recipe Bookmarked :)')
-                })
+                .then(data => this.setState({ userRecipeId: data.id }))
             })
         })
     }
@@ -90,9 +87,6 @@ export default class RecipeDetails extends React.Component  {
             }
         })
         .then(resp => resp.json())
-        .then(data => {
-            alert('Successfully remove recipe from list')
-        })
     }
 
     toggleLike = () => this.setState(prevState => {

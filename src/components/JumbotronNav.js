@@ -28,51 +28,50 @@ export default class JumbotronNav extends React.Component {
         return(
             <div className='jumbotron-holder'>
                 <Jumbotron className='jumbotron-card'>
-                        <h3 className='greeting'>{this.props.name ? `Welcome, ${this.props.name}` : null}</h3>
-                        <InputGroup className="mb-3 search-bar">
-                            <Form.Control
-                                className="mb-2 "
-                                id="inlineFormInputName2"
-                                placeholder="Ingredient name (beef, tomato, etc)"
-                                value={this.state.ingredient}
-                                onChange={this.handleChange}
-                            />
+                    <h3 className='greeting'>{this.props.name ? `Welcome, ${this.props.name}` : null}</h3>
+                    <InputGroup className="mb-3 search-bar">
+                        <Form.Control
+                            className="mb-2 "
+                            id="inlineFormInputName2"
+                            placeholder="Ingredient name (beef, tomato, etc)"
+                            value={this.state.ingredient}
+                            onChange={this.handleChange}
+                        />
 
-                            <ToggleButtonGroup 
-                                type="checkbox" 
-                                value={this.state.radioValue}
-                                className='toggleBtn'
-                            >
-                                {radios.map((radio, idx) => (
-                                    <ToggleButton
-                                        key={idx}
-                                        type="radio"
-                                        variant="secondary"
-                                        name="radio"
-                                        className='search-option'
-                                        value={radio.value}
-                                        checked={this.state.radioValue === radio.value}
-                                        onChange={(e) => this.handleToggle(e.target.value)}
-                                    >
-                                        {radio.name}
-                                    </ToggleButton>
-                                ))}
-                            </ToggleButtonGroup>
+                        <ToggleButtonGroup 
+                            type="checkbox" 
+                            value={this.state.radioValue}
+                            className='toggleBtn'
+                        >
+                            {radios.map((radio, idx) => (
+                                <ToggleButton
+                                    key={idx}
+                                    type="radio"
+                                    variant="secondary"
+                                    name="radio"
+                                    className='search-option'
+                                    value={radio.value}
+                                    checked={this.state.radioValue === radio.value}
+                                    onChange={(e) => this.handleToggle(e.target.value)}
+                                >
+                                    {radio.name}
+                                </ToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
 
-                            <InputGroup.Append>                          
-                                <Button 
-                                    variant='primary' 
-                                    type="submit" 
-                                    className="mb-2" 
-                                    onClick={(e) => {
-                                        this.props.handleSubmit(e, this.state.ingredient, this.state.radioValue)
-                                        this.setState({ ingredient: '' })
-                                    }}>
-                                    Submit
-                                </Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                    {/* </div> */}
+                        <InputGroup.Append>                          
+                            <Button 
+                                variant='primary' 
+                                type="submit" 
+                                className="mb-2" 
+                                onClick={(e) => {
+                                    this.props.handleSubmit(e, this.state.ingredient, this.state.radioValue)
+                                    this.setState({ ingredient: '' })
+                                }}>
+                                Submit
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
                 </Jumbotron>
             </div>
         )
