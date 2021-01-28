@@ -26,9 +26,11 @@ export default class RenderForm extends React.Component {
             if (e.nativeEvent.submitter.textContent === 'Update' || e.nativeEvent.submitter.textContent === 'Sign Up'){
                 if(this.state.password === '' || this.state.username === '' || this.state.name === ''){
                     alert("Fields can't be blank!")
+                } else if (e.nativeEvent.submitter.textContent === 'Update' && this.state.password !== this.state.password_confirmation){
+                    alert("Password confirmation have to match password!")
+                } else {
+                    this.props.handleSubmit(this.state)
                 }
-            } else if (e.nativeEvent.submitter.textContent === 'Update' && this.state.password !== this.state.password_confirmation){
-                alert("Password confirmation have to match password!")
             } else if (e.nativeEvent.submitter.textContent === 'Log In' & this.state.password === '' || this.state.username === ''){
                 alert("Fields can't be blank!")
             } else {
