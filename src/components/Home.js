@@ -12,7 +12,7 @@ export default class Home extends React.Component {
     state = {
         recipe: 'carousel',
         ingredients: '',
-        currentRecipeId: '',
+        currentRecipeId: null,
         searchType: '',
         recipeSource: ''
     }
