@@ -60,16 +60,8 @@ export default class IngredientList extends React.Component {
         })
     }
 
-    handleMoreIngredients = () => {
-        if (this.state.ingrAmount === 18 || this.state.ingredients.length < this.state.ingrAmount+9) {
-            alert('Reached the end of result :).')
-        } else {
-            this.setState(prevState => {
-                return{ ingrAmount: prevState.ingrAmount + 9}
-            })
-        }
-    }
-
+    handleMoreIngredients = () => this.setState(prevState => {return{ ingrAmount: prevState.ingrAmount + 9 }})
+        
     render(){
         const num = this.state.ingrAmount
         return(
@@ -87,7 +79,7 @@ export default class IngredientList extends React.Component {
 
                                 <Card.Body>
                                     {this.props.userId ? 
-                                        <Button variant="danger" onClick={() => this.handleBookmark(ingredient)} id={ingredient.id}>Bookmark</Button> : <h5>Please log in to unlock extra functionality :)</h5> 
+                                        <Button variant="danger" onClick={() => this.handleBookmark(ingredient)} id={ingredient.id}>Bookmark</Button> : <h5>Please log in to unlock extra functionality!</h5> 
                                     }
                                 </Card.Body>
 
@@ -95,7 +87,7 @@ export default class IngredientList extends React.Component {
                         )
                 }
 
-                {this.state.ingredients.length !== 0 ? 
+                {this.state.ingredients.length !== 0 && this.state.ingredients.length > this.state.ingrAmount+9 ? 
                     <Button size="lg" block className='more-btn' variant='warning' onClick={this.handleMoreIngredients}>More Result</Button> 
                     : null
                 }

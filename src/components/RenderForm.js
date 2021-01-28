@@ -23,8 +23,8 @@ export default class RenderForm extends React.Component {
         e.preventDefault()
         // debugger
         if(e.nativeEvent.submitter.textContent !== 'Delete Account'){
-            if(this.state.password === ''){
-                alert("Password can't be blank!")
+            if(this.state.password === '' || this.state.username === '' || this.state.name === ''){
+                alert("Fields can't be blank!")
             } else if(e.nativeEvent.submitter.textContent==='Update' & this.state.password !== this.state.password_confirmation){
                 alert("Password confirmation have to match password!")
             } else {

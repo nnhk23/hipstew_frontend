@@ -32,15 +32,8 @@ export default class RecipeList extends React.Component {
         this.props.renderRecipeDetails(e.target.id, 'list')
     }
 
-    handleMoreRecipes = () => {
-        if (this.state.recipeAmount === 45) {
-            alert('Reached the end of result :).')
-        } else {
-            this.setState(prevState => {
-                return{ recipeAmount: prevState.recipeAmount + 9}
-            })
-        }
-    }
+    handleMoreRecipes = () => this.setState(prevState => {return{ recipeAmount: prevState.recipeAmount + 9 }})
+        
 
     render(){
         const num = this.state.recipeAmount
@@ -64,7 +57,7 @@ export default class RecipeList extends React.Component {
                         )
                 }
 
-                {this.state.recipes.length !== 0 ? 
+                {this.state.recipes.length !== 0 && this.state.recipeAmount !== 45 ? 
                     <Button size="lg" block id='more-btn' variant='warning' onClick={this.handleMoreRecipes}>More Recipes</Button> 
                     : null
                 }
