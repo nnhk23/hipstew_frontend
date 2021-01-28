@@ -28,7 +28,6 @@ export default class RecipeList extends React.Component {
     }
 
     handleClick = (e) => {
-        // debugger
         // e.target.id? to pass down recipe's id to backend => fetch API
         this.props.renderRecipeDetails(e.target.id, 'list')
     }

@@ -36,7 +36,7 @@ export default class RecipeDetails extends React.Component  {
         .then(resp => resp.json())
         .then(data => {
             // check if user already liked this recipe
-            const bookmarkedRecipe = data.user_recipes.filter(recipe => recipe.recipe_id === this.state.currentRecipe.id)
+            const bookmarkedRecipe = data.user_recipes.filter(recipe => recipe.recipe_id === parseInt(this.props.recipeId))
 
             if (bookmarkedRecipe.length === 0){
                 this.setState({ liked: false })
@@ -56,7 +56,7 @@ export default class RecipeDetails extends React.Component  {
             body: JSON.stringify({
                 name: currentRecipe.title,
                 img_url: recipeImage,
-                recipe_id: currentRecipe.id
+                recipe_id: this.props.recipeId
             })
         })
         .then(resp => resp.json())
@@ -83,7 +83,6 @@ export default class RecipeDetails extends React.Component  {
     }
 
     handleRemoveBookMark = () => {
-        debugger
         fetch(`http://localhost:3000/user_recipes/${this.state.userRecipeId}`, {
             method: 'DELETE',
             headers: {

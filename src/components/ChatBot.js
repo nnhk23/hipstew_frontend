@@ -62,14 +62,16 @@ export default class ChatBot extends React.Component {
         let text = transcript ? transcript : this.state.userInput.toLowerCase().replace(/[^\w\s\d]/gi, "");
 
         // grab only number in text
-        let num = this.state.userInput.toLowerCase().replace(/[^\d]/gi, "");
+        let num = transcript ? transcript.toLowerCase().replace(/[^\d]/gi, "") : this.state.userInput.toLowerCase().replace(/[^\d]/gi, "");
 
         if(text.includes('recipe')){
             this.detectFoodInText(transcript)
         } else if (text.includes('food trivia')){
-            this.getFoodTrivia()
+            // get random food trivia
+            this.getDataFromUserInput("http://localhost:3000/foodtrivia")
         } else if (text.includes('joke')){
-            this.getFoodJoke()
+            // get random food joke
+            this.getDataFromUserInput("http://localhost:3000/foodjokes")
         } else if (text.includes('more')){
 
             if (this.state.recipeAmount === 18){
@@ -93,7 +95,8 @@ export default class ChatBot extends React.Component {
         } else if (text.includes('substitution') || text.includes('substitute') || text.includes('alternative')) {
             return this.getSubstitution(text)
         } else if (num.length !== 0) {
-            return this.getUnitConversion()
+            // return this.getUnitConversion()
+            this.getDataFromUserInput(`http://localhost:3000/quickanswer?userInput=${text}`)
         } else {
             // default case if nothing matches
             this.matchReply(text)
@@ -128,43 +131,6 @@ export default class ChatBot extends React.Component {
         })
     }
 
-    getFoodTrivia = () => {
-        fetch("http://localhost:3000/foodtrivia")
-        .then(resp => resp.json())
-        .then(data => this.setState(prevState => {
-                return{ 
-                    botHistory: [data.text, ...prevState.botHistory],
-                    botReply: data.text
-                }
-            }, () => this.speak(this.state.botReply))
-        )
-    }
-
-    getFoodJoke = () => {
-        fetch("http://localhost:3000/foodjokes")
-        .then(resp => resp.json())
-        .then(data => this.setState(prevState => {
-                return{ 
-                    botHistory: [data.text, ...prevState.botHistory],
-                    botReply: data.text
-                }
-            }, () => this.speak(this.state.botReply))
-        )
-    }
-
-    getUnitConversion = () => {
-        fetch(`http://localhost:3000/quickanswer?userInput=${this.state.userInput}`)
-        .then(resp => resp.json())
-        .then(data => {
-            this.setState(prevState => {
-                return{ 
-                    botHistory: [ data.answer, ...prevState.botHistory],
-                    botReply: data.answer
-                }
-            }, () => this.speak(this.state.botReply))
-        })
-    }
-
     getSubstitution = (text) => {
        
         let input
@@ -195,6 +161,20 @@ export default class ChatBot extends React.Component {
         })
     }
 
+    getDataFromUserInput = (url) => {
+        fetch(url)
+        .then(resp => resp.json())
+        .then(data => {
+            const botReply = data.answer ? data.answer : data.text
+            this.setState(prevState => {
+                return{ 
+                    botHistory: [ botReply, ...prevState.botHistory],
+                    botReply
+                }
+            }, () => this.speak(this.state.botReply))
+        })
+    }
+
     matchReply = (text) => {
         const trigger = [
             ["hi", "hey", "hello"],
@@ -209,39 +189,18 @@ export default class ChatBot extends React.Component {
             
         const reply = [
             [`Hello ${this.props.user.name}!`, `Hey there, ${this.props.user.name}!`, `Hi ${this.props.user.name}, I'm so happy to assist you!`],
-            [
-                "I'm doing good... how are you?",
-                "I feel kind of lonely, how are you?",
-                "I feel happy, how are you?"
-            ],
-            [
-                "Nothing much",
-                "Exciting things!",
-                "I'm happy to see you!"
-            ],
+            ["I'm doing good... how are you?", "I feel kind of lonely, how are you?", "I feel happy, how are you?"],
+            ["Nothing much", "Exciting things!", "I'm happy to see you!"],
             ["Glad to hear it", "Yayyy!! That's the spirit!"],
             ["There is always a rainbow after the rain!", "You should try my food joke."],
             ["You're welcome", "No problem", "It's my pleasure!"],
             ["Goodbye, it was a nice talk", "See you later!", "Thank you for talking to me!"],
-            [
-                "My name is Stewy. Very nice to meet you!",
-                "You can call me Stewy. Nice to meet you!"
-            ]
+            ["My name is Stewy. Very nice to meet you!","You can call me Stewy. Nice to meet you!"]
         ];
         
-        const alternative = [
-            "Same",
-            "Go on...",
-            "Try again please?",
-            "I'm listening...",
-            "Bro..."
-        ];
+        const alternative = ["Same","Go on...","Try again please?", "I'm listening...","Bro..."];
 
-        const robot = [
-            "It me",
-            "Wassup",
-            "Whatchu up to, fellow human?"
-        ]
+        const robot = ["It me","Wassup","Whatchu up to, fellow human?"]
 
         let botMsg
 
@@ -325,6 +284,7 @@ export default class ChatBot extends React.Component {
         setTimeout(() => {
             userTranscript = localStorage.getItem('transcript')
         }, 3000);  
+        
 
         setTimeout(() => {
             if(userTranscript.length !== 0){
