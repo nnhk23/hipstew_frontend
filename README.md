@@ -31,8 +31,20 @@ Run ```npm start```
 First time user interface:
 ![Alt](src/images/first-time-user-demo.png)
 
+Login Form:
+![Alt](src/images/login.png)
+
+Signup Form:
+![Alt](src/images/signup.png)
+
 After logged-in:
 ![Alt](src/images/logged-in-ui.png)
+
+Recipe Details:
+![Alt](src/images/recipe-details.png)
+
+Chatbot Stewy:
+![Alt](src/images/chatbot-stewy.png)
 
 ## Built With
 
@@ -40,6 +52,25 @@ After logged-in:
 * [Animate CSS](https://animate.style/) - Extra effect.
 * [React](https://reactjs.org/) - Main framework.
 * [Web Speech API](https://wicg.github.io/speech-api/) - external API responsible for chatbot and voice recognition.
+
+## Features
+**Profile:**
+* User can create a new account/ update name or password/ delete account (CRUD).
+
+**Recipes & Ingredients:**
+* User can view bookmarked recipe list/ view recipe details/ remove recipe from list (CRD).
+* User can view fridge/ remove ingredients from fridge (CRD).
+* User can look up recipes based on given ingredients (1 or more).
+* User can look up ingredients.
+
+**Chatbot:**
+* User can either type or speak to chatbot Stewy.
+* User can have a conversation with Stewy.
+* User can ask Stewy to look up recipes based on name or specific ingredients.
+* User can ask Stewy to tell a food joke/ food trivia.
+* User can ask for a unit conversion.
+* User can look for food substitution.
+* User can view conversation history.
 
 ## Authors
 
