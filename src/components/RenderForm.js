@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom'
 import '../css/App.css'
 
 export default class RenderForm extends React.Component {
@@ -21,12 +22,15 @@ export default class RenderForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        // debugger
         if(e.nativeEvent.submitter.textContent !== 'Delete Account'){
-            if(this.state.password === '' || this.state.username === '' || this.state.name === ''){
-                alert("Fields can't be blank!")
-            } else if(e.nativeEvent.submitter.textContent==='Update' & this.state.password !== this.state.password_confirmation){
+            if (e.nativeEvent.submitter.textContent === 'Update' || e.nativeEvent.submitter.textContent === 'Sign Up'){
+                if(this.state.password === '' || this.state.username === '' || this.state.name === ''){
+                    alert("Fields can't be blank!")
+                }
+            } else if (e.nativeEvent.submitter.textContent === 'Update' && this.state.password !== this.state.password_confirmation){
                 alert("Password confirmation have to match password!")
+            } else if (e.nativeEvent.submitter.textContent === 'Log In' & this.state.password === '' || this.state.username === ''){
+                alert("Fields can't be blank!")
             } else {
                 this.props.handleSubmit(this.state)
             }
@@ -128,6 +132,9 @@ export default class RenderForm extends React.Component {
                             {this.props.name === "SignUp" ? "Sign Up" : "Log In"}
                         </Button>
                     }
+
+                    {this.props.name === "Login" ? <h6>Don't have an account ? <Link to={"/signup"}>Sign Up</Link></h6> : null}
+                    {this.props.name === "SignUp" ? <h6>Have an account ? <Link to={"/login"}>Log In</Link></h6> : null}
                 </Form>
             </div>
         )
