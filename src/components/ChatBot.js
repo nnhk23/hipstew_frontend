@@ -326,7 +326,7 @@ export default class ChatBot extends React.Component {
                         
                         <InputGroup.Append>                          
                             <img 
-                                src='https://www.flaticon.com/svg/vstatic/svg/876/876329.svg?token=exp=1611619862~hmac=931152e6facf3222b9d625f47671a299'
+                                src='https://img.icons8.com/dusk/64/000000/microphone.png'
                                 alt='microphone-icon'
                                 variant='info' 
                                 type="submit" 
