@@ -31,8 +31,9 @@
 }
 
 .recipe-details{
-    padding: 100px;
-    margin: 100px 265px 100px 265px;
+    padding-bottom: 100px;
+    padding-top: 100px;
+    margin: 100px 240px;
     background-color: #ef9ead3d;
     border-radius: 40px;
 }

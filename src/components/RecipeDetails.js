@@ -136,7 +136,7 @@ export default class RecipeDetails extends React.Component  {
                 </Row>
 
                 <Row style={{ width: '100%', marginTop: '20px' }}>
-                    <Col xs={7}>
+                    <Col xs={7} style={{ marginLeft: '0px'}}>
                         <div>
                             {/* recipe photo and bookmark button */}
                             <Card style={{ width: '40rem', marginTop: '0' }} className="text-center recipe-card">
