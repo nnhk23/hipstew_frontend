@@ -20,8 +20,8 @@ export default class RecipeCarousel extends React.Component {
         return(
             <div className='carousel-holder'>
                 {/* render carousel of 5 random recipes */}
-                <h1>render carousel</h1>
-                {/* <Carousel className='carousel-bg'>
+                {/* <h1>render carousel</h1> */}
+                <Carousel className='carousel-bg'>
                     {this.state.recipes.map(recipe => 
                     
                         <Carousel.Item interval={2000}>
@@ -36,7 +36,7 @@ export default class RecipeCarousel extends React.Component {
                             </Carousel.Caption>
                         </Carousel.Item>
                     )}
-                </Carousel> */}
+                </Carousel>
                     
             </div>
         )
