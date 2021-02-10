@@ -9,7 +9,7 @@ export default class UserRecipe extends React.Component {
 
     handleDelete = (e) => {
         // remove a recipe from favorite list
-        fetch(`http://localhost:3000/user_recipes/${e.target.id}`, {
+        fetch(`https://hipstew-backend.herokuapp.com/user_recipes/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type' : 'application/json'

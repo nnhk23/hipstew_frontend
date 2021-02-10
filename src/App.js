@@ -20,7 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (localStorage.getItem('jwt')) {
-      fetch('http://localhost:3000/getuser', {
+      fetch('https://hipstew-backend.herokuapp.com/getuser', {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuthFetch(data, 'http://localhost:3000/users', 'POST')
+    this.handleAuthFetch(data, 'https://hipstew-backend.herokuapp.com/users', 'POST')
   }
 
   handleLogin = (info) => {
@@ -76,7 +76,7 @@ class App extends React.Component {
       username: info.username,
       password: info.password
     }
-    this.handleAuthFetch(data, 'http://localhost:3000/login', 'POST')
+    this.handleAuthFetch(data, 'https://hipstew-backend.herokuapp.com/login', 'POST')
   }
 
   handleLogout = () => {
@@ -91,12 +91,12 @@ class App extends React.Component {
       name: info.name,
       password: info.password
     }
-    this.handleAuthFetch(data, `http://localhost:3000/users/${this.state.user.id}`, 'PATCH')
+    this.handleAuthFetch(data, `https://hipstew-backend.herokuapp.com/users/${this.state.user.id}`, 'PATCH')
   }
 
   handleDelete = () => {
     this.closeModal()
-    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+    fetch(`https://hipstew-backend.herokuapp.com/users/${this.state.user.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type' : 'application/json'

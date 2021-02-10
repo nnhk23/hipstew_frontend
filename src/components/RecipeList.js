@@ -15,7 +15,7 @@ export default class RecipeList extends React.Component {
 
     componentDidMount() {
 
-        fetch(`http://localhost:3000/getrecipe?ingredients=${this.props.ingredients}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getrecipe?ingredients=${this.props.ingredients}`)
         .then(resp => resp.json())
         .then(data => {
             // debugger

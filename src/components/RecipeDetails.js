@@ -22,7 +22,7 @@ export default class RecipeDetails extends React.Component  {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
         .then(data => this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings }))
 
@@ -32,7 +32,7 @@ export default class RecipeDetails extends React.Component  {
     }
 
     checkUserBookmarkedList = () => {
-        fetch(`http://localhost:3000/users/${this.props.userId}`)
+        fetch(`https://hipstew-backend.herokuapp.com/users/${this.props.userId}`)
         .then(resp => resp.json())
         .then(data => {
             // check if user already liked this recipe
@@ -48,7 +48,7 @@ export default class RecipeDetails extends React.Component  {
     handleBookmark = (recipe) => {
         const { currentRecipe, recipeImage } = recipe
         // save recipe to database (create new Recipe)
-        fetch('http://localhost:3000/recipes', {
+        fetch('https://hipstew-backend.herokuapp.com/recipes', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -63,7 +63,7 @@ export default class RecipeDetails extends React.Component  {
         .then(data => {
             this.setState({ recipeId: data.id }, () => {
                 // post request to create UserRecipe
-                fetch('http://localhost:3000/user_recipes', {
+                fetch('https://hipstew-backend.herokuapp.com/user_recipes', {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -80,7 +80,7 @@ export default class RecipeDetails extends React.Component  {
     }
 
     handleRemoveBookMark = () => {
-        fetch(`http://localhost:3000/user_recipes/${this.state.userRecipeId}`, {
+        fetch(`https://hipstew-backend.herokuapp.com/user_recipes/${this.state.userRecipeId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type' : 'application/json'
@@ -96,7 +96,7 @@ export default class RecipeDetails extends React.Component  {
     })
 
     getAnalyzedInstruction = () => {
-        fetch(`http://localhost:3000/getrecipeinstruction?sourceUrl=${this.state.currentRecipe.sourceUrl}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getrecipeinstruction?sourceUrl=${this.state.currentRecipe.sourceUrl}`)
         .then(resp => resp.json())
         .then(data => this.setState({ currentRecipe: data }))
     }

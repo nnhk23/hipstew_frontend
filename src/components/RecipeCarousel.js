@@ -9,7 +9,7 @@ export default class RecipeCarousel extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/getrandomrecipes')
+        fetch('https://hipstew-backend.herokuapp.com/getrandomrecipes')
         .then(resp => resp.json())
         .then(data => {
             this.setState({ recipes: data.recipes })})

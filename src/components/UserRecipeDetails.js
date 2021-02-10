@@ -20,14 +20,14 @@ export default class UserRecipeDetails extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:3000/getrecipedetails?id=${this.props.recipeId}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getrecipedetails?id=${this.props.recipeId}`)
         .then(resp => resp.json())
         .then(data => {
             this.setState({ currentRecipe: data, recipeImage: data.image, servings: data.servings, OGservings: data.servings })})
     }
 
     getAnalyzedInstruction = () => {
-        fetch(`http://localhost:3000/getrecipeinstruction?sourceUrl=${this.state.currentRecipe.sourceUrl}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getrecipeinstruction?sourceUrl=${this.state.currentRecipe.sourceUrl}`)
         .then(resp => resp.json())
         .then(data => {
             // debugger
