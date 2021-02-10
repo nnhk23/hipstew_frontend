@@ -20,7 +20,7 @@ export default class TopNav extends React.Component {
                             <>
                                 <Nav.Link href="/editprofile"><img className='icon' src='https://img.icons8.com/dusk/64/000000/test-account.png' alt='profile-icon' /></Nav.Link>
 
-                                <Nav.Link href="/userrecipes"><img className='icon' src='<img src="https://img.icons8.com/dusk/64/000000/restaurant.png"/>' alt='cookbook-icon' /></Nav.Link>
+                                <Nav.Link href="/userrecipes"><img className='icon' src='https://img.icons8.com/dusk/64/000000/restaurant.png' alt='cookbook-icon' /></Nav.Link>
 
                                 <Nav.Link href="/useringredients"><img className='icon' src='https://img.icons8.com/dusk/64/000000/fridge.png' alt='fridge-icon' /></Nav.Link>
 
