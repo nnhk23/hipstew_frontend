@@ -52,3 +52,29 @@
 .like-btn:hover, .like-btn:focus{
     background: maroon;
 }
+
+@media only screen and (max-width: 900px){
+    .recipe-details{
+        margin: 0.5rem;
+    }
+
+    .food-col {
+        padding-left: 0;
+    }
+
+    .card-img-top {
+        width: 50vw;
+    }
+
+    .title-row{
+        width: 80vw;
+    }
+
+    .recipe-card {
+        width: 80vw !important;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}

@@ -15,6 +15,8 @@
     border-radius: 15px;
 }
 
-/* .carousel-holder{
-    margin-top: 30px;
-} */
+@media only screen and (max-width: 900px){
+    .carousel-bg{
+        width: 100vw;
+    }
+}
