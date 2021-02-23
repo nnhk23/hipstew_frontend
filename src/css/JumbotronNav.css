@@ -21,7 +21,7 @@
     content: '';
     display: block;
     position: absolute;
-    width: 120rem;
+    width: 100vw;
     height: 450px;
     background:  url(../images/rachel-park-hrlvr2ZlUNk-unsplash.jpg);
     background-size: cover;
