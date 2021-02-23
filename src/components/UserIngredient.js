@@ -6,7 +6,7 @@ import '../css/UserIngredient.css'
 export default class UserIngredient extends React.Component {
 
     handleDelete = (e) => {
-        fetch(`http://localhost:3000/user_ingres/${e.target.id}`, {
+        fetch(`https://hipstew-backend.herokuapp.com/user_ingres/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type' : 'application/json'

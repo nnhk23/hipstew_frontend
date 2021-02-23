@@ -43,7 +43,7 @@ export default class RenderForm extends React.Component {
 
     componentDidMount() {
         if (localStorage.getItem('jwt')) {
-          fetch('http://localhost:3000/getuser', {
+          fetch('https://hipstew-backend.herokuapp.com/getuser', {
             method: "GET",
             headers: {
               'Content-Type': 'application/json',

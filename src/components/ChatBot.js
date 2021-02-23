@@ -51,10 +51,10 @@ export default class ChatBot extends React.Component {
 
     getData = (transcript) => {
         // check if this.state.userInput has 'recipe' / 'food trivia' / 'joke' / a number in it
-        // 1. 'recipe' : fetch data from `http://localhost:3000/detectfood?userInput=${this.state.userInput}` to extract food/ingredients
-        // 2. 'food trivia' : fetch data from "http://localhost:3000/foodtrivia"
-        // 3. 'food joke' : fetch data from "http://localhost:3000/foodjokes"
-        // 4. a number in it : fetch data from "http://localhost:3000/quickanswer"
+        // 1. 'recipe' : fetch data from `https://hipstew-backend.herokuapp.com/detectfood?userInput=${this.state.userInput}` to extract food/ingredients
+        // 2. 'food trivia' : fetch data from "https://hipstew-backend.herokuapp.com/foodtrivia"
+        // 3. 'food joke' : fetch data from "https://hipstew-backend.herokuapp.com/foodjokes"
+        // 4. a number in it : fetch data from "https://hipstew-backend.herokuapp.com/quickanswer"
         // 5. default messages.
 
 
@@ -68,10 +68,10 @@ export default class ChatBot extends React.Component {
             this.detectFoodInText(transcript)
         } else if (text.includes('food trivia')){
             // get random food trivia
-            this.getDataFromUserInput("http://localhost:3000/foodtrivia")
+            this.getDataFromUserInput("https://hipstew-backend.herokuapp.com/foodtrivia")
         } else if (text.includes('joke')){
             // get random food joke
-            this.getDataFromUserInput("http://localhost:3000/foodjokes")
+            this.getDataFromUserInput("https://hipstew-backend.herokuapp.com/foodjokes")
         } else if (text.includes('more')){
 
             if (this.state.recipeAmount === 18){
@@ -96,7 +96,7 @@ export default class ChatBot extends React.Component {
             return this.getSubstitution(text)
         } else if (num.length !== 0) {
             // return this.getUnitConversion()
-            this.getDataFromUserInput(`http://localhost:3000/quickanswer?userInput=${text}`)
+            this.getDataFromUserInput(`https://hipstew-backend.herokuapp.com/quickanswer?userInput=${text}`)
         } else {
             // default case if nothing matches
             this.matchReply(text)
@@ -106,7 +106,7 @@ export default class ChatBot extends React.Component {
 
     detectFoodInText = (transcript) => {
         const userMsg = transcript ? transcript : this.state.userInput
-        fetch(`http://localhost:3000/detectfood?userInput=${userMsg}`)
+        fetch(`https://hipstew-backend.herokuapp.com/detectfood?userInput=${userMsg}`)
         .then(resp => resp.json())
         .then(data => {
             // only get 1 dish out of user's input
@@ -117,7 +117,7 @@ export default class ChatBot extends React.Component {
 
             // set state then get recipes from api
             this.setState({ dish, ingredients }, () => {
-                fetch(`http://localhost:3000/complexrecipesearch?ingredients=${this.state.ingredients}&dish=${this.state.dish}`)
+                fetch(`https://hipstew-backend.herokuapp.com/complexrecipesearch?ingredients=${this.state.ingredients}&dish=${this.state.dish}`)
                 .then(resp => resp.json())
                 .then(data => {
                     this.setState(prevState => {
@@ -142,7 +142,7 @@ export default class ChatBot extends React.Component {
             input = text.replace(/substitute/gi, "")
         }
         // debugger
-        fetch(`http://localhost:3000/getsubstitution?userInput=${input.replace(" ", "")}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getsubstitution?userInput=${input.replace(" ", "")}`)
         .then(resp => resp.json())
         .then(data => {
             let response
@@ -326,7 +326,7 @@ export default class ChatBot extends React.Component {
                         
                         <InputGroup.Append>                          
                             <img 
-                                src='https://www.flaticon.com/svg/vstatic/svg/876/876329.svg?token=exp=1611619862~hmac=931152e6facf3222b9d625f47671a299'
+                                src='https://img.icons8.com/dusk/64/000000/microphone.png'
                                 alt='microphone-icon'
                                 variant='info' 
                                 type="submit" 

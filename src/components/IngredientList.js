@@ -15,7 +15,7 @@ export default class IngredientList extends React.Component {
 
     componentDidMount() {
 
-        fetch(`http://localhost:3000/getingredients?ingredient=${this.props.ingredient}`)
+        fetch(`https://hipstew-backend.herokuapp.com/getingredients?ingredient=${this.props.ingredient}`)
         .then(resp => resp.json())
         .then(data => {
             if (data.error){
@@ -30,7 +30,7 @@ export default class IngredientList extends React.Component {
     handleBookmark = (ingredient) => {
         debugger
         const { name, image } = ingredient
-        fetch('http://localhost:3000/ingredients', {
+        fetch('https://hipstew-backend.herokuapp.com/ingredients', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -43,7 +43,7 @@ export default class IngredientList extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             this.setState({ ingredientId: data.id }, () => {
-                fetch('http://localhost:3000/user_ingres', {
+                fetch('https://hipstew-backend.herokuapp.com/user_ingres', {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
