@@ -21,7 +21,7 @@
     content: '';
     display: block;
     position: absolute;
-    width: 120rem;
+    width: 100vw;
     height: 450px;
     background:  url(../images/rachel-park-hrlvr2ZlUNk-unsplash.jpg);
     background-size: cover;
@@ -43,4 +43,20 @@
     padding-left: 200px;
     padding-right: 200px;
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 900px){
+    .input-group > .form-control {
+        width: 80vw !important;
+    }
+
+    .jumbotron{
+        padding-top: 8rem
+    }
+
+    .search-bar{
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 20px;
+    }
 }

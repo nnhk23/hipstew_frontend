@@ -31,7 +31,7 @@ export default class JumbotronNav extends React.Component {
                     <h3 className='greeting'>{this.props.name ? `Welcome, ${this.props.name}` : null}</h3>
                     <InputGroup className="mb-3 search-bar">
                         <Form.Control
-                            className="mb-2 "
+                            className="mb-2 user-input"
                             id="inlineFormInputName2"
                             placeholder="Ingredient name (beef, tomato, etc)"
                             value={this.state.ingredient}
